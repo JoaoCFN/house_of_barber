@@ -17,7 +17,7 @@
          */
         public function setNome($nome): self
         {
-                $this->nome = $nome;
+            $this->nome = $nome;
 
             return $this;
         }

@@ -66,7 +66,7 @@
             $statement = $this->pdo->prepare($query);
             $result = $statement->execute([
                 "nome" => $teste->getNome(),
-                "id_teste" => $$id
+                "id_teste" => $id
             ]);
 
             return $result;

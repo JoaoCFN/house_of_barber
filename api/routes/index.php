@@ -1,5 +1,7 @@
 <?php
     use function config\slimConfiguration;
+    
+    use App\Controllers\TesteController;
 
     $app = new \Slim\App(slimConfiguration());
 

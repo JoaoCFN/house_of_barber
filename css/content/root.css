@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* Exemplo */
+    --primary: #176086;
+    
+    --primary-gradient: linear-gradient(to right, #176086, #228abe, #176086);
+}

@@ -1,0 +1,12 @@
+{
+    "name": "joaon/api",
+    "authors": [
+        {
+            "name": "João Neto",
+            "email": "joaoneto.20fsa@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "3.0"
+    }
+}

@@ -5,8 +5,16 @@
 }
 
 :root{
-    /* Exemplo */
-    --primary: #176086;
-    
-    --primary-gradient: linear-gradient(to right, #176086, #228abe, #176086);
+    --primary: #202024;
+    --secondary: #FFC107;
+    --white: #fff;
+    --black: #000;
+    --green: #28a745;
+    --red: #ca2c2c;
+}
+
+#root{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

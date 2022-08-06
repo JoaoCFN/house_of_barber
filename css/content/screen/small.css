@@ -1,3 +1,36 @@
+/* Small */
 @media screen and (max-width: 576px){
-    
+    /* Registro */
+    .login{
+        display: flex;
+        align-items: center;
+    }
+
+    .registro{
+        display: flex;
+        align-items: center;
+    }
+
+    .registro_barbearia{
+        padding-top: 8%;
+        display: flex;
+        align-items: center;
+    }
+
+    .hb-navbar .logo{
+        width: 120px;
+    }
+
+    .gap-to-menu{
+        margin-top: max(110px, 8vh);
+    }
+
+    .area-cliente{
+        margin-top: 1rem;
+        justify-content: center;
+    }
+
+    .area-cliente-card .card-img-top{
+        min-height: 100%;
+    }
 }

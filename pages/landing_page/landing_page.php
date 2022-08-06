@@ -3,14 +3,22 @@
 ?>
     <!-- Landing page CSS -->
     <link rel="stylesheet" type="text/css" href="pages/landing_page/landing_page.css?v=<?php echo uniqid(); ?>">
+    <!-- Footer CSS -->
+    <link rel="stylesheet" type="text/css" href="components/footer/footer.css?v=<?php echo uniqid(); ?>">
 
     <body>
-        <?php 
-            require_once "pages/landing_page/content/landing_page_content.php"; 
-            require_once "components/scripts.php";
-        ?>
+        <div 
+            id="root" 
+            class="index hb-bg-black"
+        >
+            <?php 
+                require_once "pages/landing_page/content/landing_page_content.php"; 
+                require_once "components/footer/footer.php";
+                require_once "components/scripts.php";
+            ?>
+        </div>
 
         <!-- Landing page JS -->
-        <script src="pages/Landing page/Landing page.js?v=<?php echo uniqid(); ?>"></script>
+        <script src="pages/landing_page/landing_page.js?v=<?php echo uniqid(); ?>"></script>
     </body>
 <html>

@@ -1,0 +1,51 @@
+/* Medium */
+@media screen and (max-width: 768px){
+    /* Registro */
+    #banner-registro,
+    #banner-registro-barbearia,
+    #banner-login{
+        display: none;
+    }
+
+    .header-index h5{
+        padding: 0 32px;
+    }
+
+    #header-text{
+        margin-bottom: 100px;
+    }
+
+    .barbearia .hb-float-right{
+        float: none;
+    }
+
+    .barbearia .hb-mt-5{
+        margin-top: 0;
+        margin-bottom: .5rem;
+    }
+
+    .barbearia .hb-mt-2{
+        margin-top: 0;
+    }
+
+    .barbearia #nome-barbearia{
+        margin-top: 2rem;
+    }
+
+    .barbearia #status{
+        display: block;
+        margin: 0 auto;
+    }
+
+    .barbearia .agendamento{
+        margin-top: 2rem !important;
+    }
+
+    .barbearia .informacoes{
+        text-align: center;
+    }
+
+    .area-cliente-card .card-img-top{
+        min-height: 100%;
+    }
+}

@@ -16,13 +16,13 @@
         if(substr_count($_SERVER["REQUEST_URI"], "/") == 3){
             ?>
                 <!-- CSS -->
-                <link rel="stylesheet" href="../css/index.css">
+                <link rel="stylesheet" href="../css/index.css?v=<?php echo uniqid(); ?>">
             <?php
         }
         else{
             ?>
                 <!-- CSS -->
-                <link rel="stylesheet" href="css/index.css">
+                <link rel="stylesheet" href="css/index.css?v=<?php echo uniqid(); ?>">
             <?php
         }
     ?>

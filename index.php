@@ -12,7 +12,7 @@
     });
 
     $app->get('/barbearia/login', function(){
-        require_once "pages/login_cliente/login_cliente.php";
+        require_once "pages/login_barbearia/login_barbearia.php";
     });
 
     $app->get('/cliente/registrar', function(){

@@ -43,7 +43,7 @@
                             </h6>
                             <h6 class="hb-txt-white text-justify pt-2 pb-2">
                                 Não tem uma conta?  
-                                <a href="barbearia/registrar" class="hb-txt-secondary text-decoration-none" id="registre-se">
+                                <a href="/house_of_barber/barbearia/registrar" class="hb-txt-secondary text-decoration-none" id="registre-se">
                                     Registre-se
                                 </a>.
                             </h6>

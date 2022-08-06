@@ -11,6 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Font awesome CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/index.css">
+
+    <?php 
+        if(substr_count($_SERVER["REQUEST_URI"], "/") == 3){
+            ?>
+                <!-- CSS -->
+                <link rel="stylesheet" href="../css/index.css">
+            <?php
+        }
+        else{
+            ?>
+                <!-- CSS -->
+                <link rel="stylesheet" href="css/index.css">
+            <?php
+        }
+    ?>
 </head>

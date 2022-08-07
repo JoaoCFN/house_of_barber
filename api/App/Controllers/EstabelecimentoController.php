@@ -59,31 +59,49 @@
 
                 if($correctFieldsInformed){
                     if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-                        $estabelecimentoModel = new EstabelecimentoModel();
-                        $estabelecimentoDAO = new EstabelecimentoDAO();
+                        if(strlen($data['senha']) >= 8){
+                            $estabelecimentoModel = new EstabelecimentoModel();
+                            $estabelecimentoDAO = new EstabelecimentoDAO();
 
-                        $hashSenha = md5($data['senha']);
-        
-                        $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
-                        $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
-                        $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
-                        $estabelecimentoModel->setEmail($data['email']);
-                        $estabelecimentoModel->setSenha($hashSenha);
-                        $estabelecimentoModel->setNome($data['nome']);
-                        $estabelecimentoModel->setTelefone($data['telefone']);
-                        $estabelecimentoModel->setCnpj($data['cnpj']);
-            
-                        $queryStatus = $estabelecimentoDAO->insertEstabelecimento($estabelecimentoModel);
-            
-                        if($queryStatus){
-                            $response = $response->withJson([
-                                "message" => "Estabelecimento inserido com sucesso",
-                                "error" => "false"
-                            ]);
+                            $userData = $estabelecimentoDAO->findUserByEmail($data['email']);
+
+                            if($userData && count($userData) > 0){                               
+                                $response = $response->withJson([
+                                    "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
+                                    "error" => "true"
+                                ]);
+                            }
+                            else{
+                                $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
+                
+                                $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
+                                $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
+                                $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
+                                $estabelecimentoModel->setEmail($data['email']);
+                                $estabelecimentoModel->setSenha($hashSenha);
+                                $estabelecimentoModel->setNome($data['nome']);
+                                $estabelecimentoModel->setTelefone($data['telefone']);
+                                $estabelecimentoModel->setCnpj($data['cnpj']);
+                    
+                                $queryStatus = $estabelecimentoDAO->insertEstabelecimento($estabelecimentoModel);
+                    
+                                if($queryStatus){
+                                    $response = $response->withJson([
+                                        "message" => "Estabelecimento inserido com sucesso",
+                                        "error" => "false"
+                                    ]);
+                                }
+                                else{
+                                    $response = $response->withJson([
+                                        "message" => "Erro ao inserir o estabelecimento",
+                                        "error" => "true"
+                                    ]);
+                                }
+                            }
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Erro ao inserir o estabelecimento",
+                                "message" => "Informe uma senha com no mínimo 8 caracteres",
                                 "error" => "true"
                             ]);
                         }
@@ -130,7 +148,7 @@
                             $estabelecimentoModel = new EstabelecimentoModel();
                             $estabelecimentoDAO = new EstabelecimentoDAO();
     
-                            $hashSenha = md5($data['senha']);
+                            $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
         
                             $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
                             $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);

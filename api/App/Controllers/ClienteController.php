@@ -62,7 +62,7 @@
                         $clienteModel = new ClienteModel();
                         $clienteDAO = new ClienteDAO();
 
-                        $hashSenha = md5($data['senha']);
+                        $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
         
                         $clienteModel->setNome($data['nome']);
                         $clienteModel->setTelefone($data['telefone']);
@@ -125,29 +125,47 @@
 
                     if(is_numeric($id)){
                         if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-                            $clienteModel = new ClienteModel();
-                            $clienteDAO = new ClienteDAO();
-    
-                            $hashSenha = md5($data['senha']);
-        
-                            $clienteModel->setNome($data['nome']);
-                            $clienteModel->setTelefone($data['telefone']);
-                            $clienteModel->setDataNascimento($data['data_nascimento']);
-                            $clienteModel->setCpf($data['cpf']);
-                            $clienteModel->setEmail($data['email']);
-                            $clienteModel->setSenha($hashSenha);
-        
-                            $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
-        
-                            if($queryStatus){
-                                $response = $response->withJson([
-                                    "message" => "Cliente atualizado com sucesso",
-                                    "error" => "false"
-                                ]);
+                            if(strlen($data['senha']) >= 8){
+                                $clienteModel = new ClienteModel();
+                                $clienteDAO = new ClienteDAO();
+
+                                $userData = $clienteDAO->findUserByEmail($data['email']);
+
+                                if($userData && count($userData) > 0){
+                                    $response = $response->withJson([
+                                        "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
+                                        "error" => "true"
+                                    ]);
+                                }
+                                else{
+                                    $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
+                
+                                    $clienteModel->setNome($data['nome']);
+                                    $clienteModel->setTelefone($data['telefone']);
+                                    $clienteModel->setDataNascimento($data['data_nascimento']);
+                                    $clienteModel->setCpf($data['cpf']);
+                                    $clienteModel->setEmail($data['email']);
+                                    $clienteModel->setSenha($hashSenha);
+                
+                                    $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
+                
+                                    if($queryStatus){
+                                        $response = $response->withJson([
+                                            "message" => "Cliente atualizado com sucesso",
+                                            "error" => "false"
+                                        ]);
+                                    }
+                                    else{
+                                        $response = $response->withJson([
+                                            "message" => "Erro ao atualizar o cliente",
+                                            "error" => "true"
+                                        ]);
+                                    }
+                                }
                             }
                             else{
                                 $response = $response->withJson([
-                                    "message" => "Erro ao atualizar o cliente",
+                                    "message" => "Informe uma senha com no mínimo 8 caracteres",
                                     "error" => "true"
                                 ]);
                             }

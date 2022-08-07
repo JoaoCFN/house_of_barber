@@ -40,6 +40,29 @@
             return $cidade;
         }
 
+        public function findUserByEmail(string $email): array
+        {
+            $query = "SELECT 
+                    nome,
+                    telefone,
+                    data_nascimento,
+                    cpf,
+                    email
+                FROM cliente
+                WHERE 
+                    email = :email
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "email" => $email
+            ]);
+
+            $cliente = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $cliente;
+        }
+
         public function insertCliente(ClienteModel $cliente): bool
         {
             $query = "INSERT INTO cliente(

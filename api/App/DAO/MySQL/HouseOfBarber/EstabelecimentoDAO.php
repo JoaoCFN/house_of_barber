@@ -35,9 +35,35 @@
                 "id" => $id
             ]);
 
-            $cidade = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $estabelecimento = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $cidade;
+            return $estabelecimento;
+        }
+
+        public function findUserByEmail(string $email): array
+        {
+            $query = "SELECT 
+                    nome_admin,
+                    telefone_admin,
+                    cpf_admin,
+                    email,
+                    nome, 
+                    telefone,
+                    cnpj,
+                    status
+                FROM estabelecimento
+                WHERE 
+                    email = :email
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "email" => $email
+            ]);
+
+            $estabelecimento = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $estabelecimento;
         }
 
         public function insertEstabelecimento(EstabelecimentoModel $estabelecimento): bool

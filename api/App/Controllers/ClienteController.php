@@ -4,31 +4,31 @@
     use Psr\Http\Message\RequestInterface as Request;
     use Psr\Http\Message\ResponseInterface as Response;
 
-    use App\DAO\MySQL\HouseOfBarber\TesteDAO;
-    use App\Models\MySQL\HouseOfBarber\TesteModel;
+    use App\DAO\MySQL\HouseOfBarber\ClienteDAO;
+    use App\Models\MySQL\HouseOfBarber\ClienteModel;
     use App\Assets\BaseLib\App\Utilities;
 
-    final class TesteController{
-        public function getTestes(Request $request, Response $response, array $args): Response 
+    final class ClienteController{
+        public function getClientes(Request $request, Response $response, array $args): Response 
         {
-            $testeDAO = new TesteDAO();
-            $testes = $testeDAO->getAll();
+            $clienteDAO = new ClienteDAO();
+            $clientes = $clienteDAO->getAll();
 
-            $response = $response->withJson($testes);
+            $response = $response->withJson($clientes);
             
             return $response;
         }
 
-        public function getTeste(Request $request, Response $response, array $args): Response 
+        public function getCliente(Request $request, Response $response, array $args): Response 
         {
             if(isset($args['id'])){
                 $id = $args['id'];
     
                 if(is_numeric($id)){
-                    $testeModel = new TesteModel();
-                    $teste = $testeModel->findById($id);
+                    $clienteDAO = new clienteDAO();
+                    $cliente = $clienteDAO->findById($id);
         
-                    $response = $response->withJson($teste);
+                    $response = $response->withJson($cliente);
                 }
                 else{
                     $response = $response->withJson([
@@ -47,33 +47,48 @@
             return $response;
         }
         
-        public function insertTeste(Request $request, Response $response, array $args): Response 
+        public function insertCliente(Request $request, Response $response, array $args): Response 
         {
             $data = $request->getParsedBody();
 
-            if(count($data) > 0){
-                $fieldsNecessary = ['nome'];
+            if($data && count($data) > 0){
+                $fieldsNecessary = ['nome', 'telefone', 'data_nascimento', 'cpf', 'email', 'senha'];
                 $data = Utilities::treatRequestBody($data, 'PDO');
 
                 $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
 
                 if($correctFieldsInformed){
-                    $testeModel = new TesteModel();
-                    $testeDAO = new TesteDAO();
+                    if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                        $clienteModel = new ClienteModel();
+                        $clienteDAO = new ClienteDAO();
+
+                        $hashSenha = md5($data['senha']);
         
-                    $testeModel->setNome($data['nome']);
-        
-                    $queryStatus = $testeDAO->insertTeste($testeModel);
-        
-                    if($queryStatus){
-                        $response = $response->withJson([
-                            "message" => "Teste inserida com sucesso",
-                            "error" => "false"
-                        ]);
+                        $clienteModel->setNome($data['nome']);
+                        $clienteModel->setTelefone($data['telefone']);
+                        $clienteModel->setDataNascimento($data['data_nascimento']);
+                        $clienteModel->setCpf($data['cpf']);
+                        $clienteModel->setEmail($data['email']);
+                        $clienteModel->setSenha($hashSenha);
+            
+                        $queryStatus = $clienteDAO->insertCliente($clienteModel);
+            
+                        if($queryStatus){
+                            $response = $response->withJson([
+                                "message" => "Cliente inserido com sucesso",
+                                "error" => "false"
+                            ]);
+                        }
+                        else{
+                            $response = $response->withJson([
+                                "message" => "Erro ao inserir o cliente",
+                                "error" => "true"
+                            ]);
+                        }
                     }
                     else{
                         $response = $response->withJson([
-                            "message" => "Erro ao inserir a teste",
+                            "message" => "Informe um email em um formato válido",
                             "error" => "true"
                         ]);
                     }
@@ -95,11 +110,11 @@
             return $response;
         }
         
-        public function updateTeste(Request $request, Response $response, array $args): Response 
+        public function updateCliente(Request $request, Response $response, array $args): Response 
         {
             $data = $request->getParsedBody();
 
-            if(count($data) > 0){
+            if($data && count($data) > 0){
                 $fieldsNecessary = ['id', 'nome'];
                 $data = Utilities::treatRequestBody($data, 'PDO');
 
@@ -109,22 +124,37 @@
                     $id = $data['id'];
 
                     if(is_numeric($id)){
-                        $testeModel = new TesteModel();
-                        $testeDAO = new TesteDAO();
+                        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                            $clienteModel = new ClienteModel();
+                            $clienteDAO = new ClienteDAO();
     
-                        $testeModel->setNome($data['nome']);
-    
-                        $queryStatus = $testeDAO->updateTeste($testeModel, $id);
-    
-                        if($queryStatus){
-                            $response = $response->withJson([
-                                "message" => "Teste atualiza com sucesso",
-                                "error" => "false"
-                            ]);
+                            $hashSenha = md5($data['senha']);
+        
+                            $clienteModel->setNome($data['nome']);
+                            $clienteModel->setTelefone($data['telefone']);
+                            $clienteModel->setDataNascimento($data['data_nascimento']);
+                            $clienteModel->setCpf($data['cpf']);
+                            $clienteModel->setEmail($data['email']);
+                            $clienteModel->setSenha($hashSenha);
+        
+                            $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
+        
+                            if($queryStatus){
+                                $response = $response->withJson([
+                                    "message" => "Cliente atualizado com sucesso",
+                                    "error" => "false"
+                                ]);
+                            }
+                            else{
+                                $response = $response->withJson([
+                                    "message" => "Erro ao atualizar o cliente",
+                                    "error" => "true"
+                                ]);
+                            }
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Erro ao atualizar a teste",
+                                "message" => "Informe um email em um formato válido",
                                 "error" => "true"
                             ]);
                         }
@@ -153,11 +183,11 @@
             return $response;
         }
         
-        public function deleteTeste(Request $request, Response $response, array $args): Response 
+        public function deleteCliente(Request $request, Response $response, array $args): Response 
         {
             $data = $request->getParsedBody();
 
-            if(count($data) > 0){
+            if($data && count($data) > 0){
                 $fieldsNecessary = ['id'];
                 $data = Utilities::treatRequestBody($data, 'PDO');
 
@@ -167,18 +197,18 @@
                     $id = $data['id'];
 
                     if(is_numeric($id)){
-                        $testeDAO = new TesteDAO();
-                        $queryStatus = $testeDAO->deleteTeste($id);
+                        $clienteDAO = new ClienteDAO();
+                        $queryStatus = $clienteDAO->deleteCliente($id);
         
                         if($queryStatus){
                             $response = $response->withJson([
-                                "message" => "Teste deletada com sucesso",
+                                "message" => "Cliente deletado com sucesso",
                                 "error" => "false"
                             ]);
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Erro ao deletar a teste",
+                                "message" => "Erro ao deletar o cliente",
                                 "error" => "true"
                             ]);
                         }
@@ -203,7 +233,6 @@
                     "error" => "true"
                 ]);
             }
-
             
             return $response;
         }

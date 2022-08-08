@@ -147,32 +147,43 @@
                         if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
                             $estabelecimentoModel = new EstabelecimentoModel();
                             $estabelecimentoDAO = new EstabelecimentoDAO();
-    
-                            $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
-        
-                            $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
-                            $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
-                            $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
-                            $estabelecimentoModel->setEmail($data['email']);
-                            $estabelecimentoModel->setSenha($hashSenha);
-                            $estabelecimentoModel->setNome($data['nome']);
-                            $estabelecimentoModel->setTelefone($data['telefone']);
-                            $estabelecimentoModel->setCnpj($data['cnpj']);
-        
-                            $queryStatus = $estabelecimentoDAO->updateEstabelecimento($estabelecimentoModel, $id);
-        
-                            if($queryStatus){
+
+                            $userData = $estabelecimentoDAO->findUserByEmail($data['email']);
+
+                            if($userData && count($userData) > 0){
                                 $response = $response->withJson([
-                                    "message" => "Estabelecimento atualizado com sucesso",
-                                    "error" => "false"
-                                ]);
-                            }
-                            else{
-                                $response = $response->withJson([
-                                    "message" => "Erro ao atualizar o estabelecimento",
+                                    "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
                                     "error" => "true"
                                 ]);
                             }
+                            else{
+                                $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
+            
+                                $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
+                                $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
+                                $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
+                                $estabelecimentoModel->setEmail($data['email']);
+                                $estabelecimentoModel->setSenha($hashSenha);
+                                $estabelecimentoModel->setNome($data['nome']);
+                                $estabelecimentoModel->setTelefone($data['telefone']);
+                                $estabelecimentoModel->setCnpj($data['cnpj']);
+            
+                                $queryStatus = $estabelecimentoDAO->updateEstabelecimento($estabelecimentoModel, $id);
+            
+                                if($queryStatus){
+                                    $response = $response->withJson([
+                                        "message" => "Estabelecimento atualizado com sucesso",
+                                        "error" => "false"
+                                    ]);
+                                }
+                                else{
+                                    $response = $response->withJson([
+                                        "message" => "Erro ao atualizar o estabelecimento",
+                                        "error" => "true"
+                                    ]);
+                                }
+                            }
+    
                         }
                         else{
                             $response = $response->withJson([

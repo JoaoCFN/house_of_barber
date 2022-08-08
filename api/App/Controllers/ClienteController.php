@@ -62,28 +62,38 @@
                         $clienteModel = new ClienteModel();
                         $clienteDAO = new ClienteDAO();
 
-                        $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
-        
-                        $clienteModel->setNome($data['nome']);
-                        $clienteModel->setTelefone($data['telefone']);
-                        $clienteModel->setDataNascimento($data['data_nascimento']);
-                        $clienteModel->setCpf($data['cpf']);
-                        $clienteModel->setEmail($data['email']);
-                        $clienteModel->setSenha($hashSenha);
-            
-                        $queryStatus = $clienteDAO->insertCliente($clienteModel);
-            
-                        if($queryStatus){
+                        $userData = $clienteDAO->findUserByEmail($data['email']);
+
+                        if($userData && count($userData) > 0){
                             $response = $response->withJson([
-                                "message" => "Cliente inserido com sucesso",
-                                "error" => "false"
-                            ]);
-                        }
-                        else{
-                            $response = $response->withJson([
-                                "message" => "Erro ao inserir o cliente",
+                                "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
                                 "error" => "true"
                             ]);
+                        }
+                        else {
+                            $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
+            
+                            $clienteModel->setNome($data['nome']);
+                            $clienteModel->setTelefone($data['telefone']);
+                            $clienteModel->setDataNascimento($data['data_nascimento']);
+                            $clienteModel->setCpf($data['cpf']);
+                            $clienteModel->setEmail($data['email']);
+                            $clienteModel->setSenha($hashSenha);
+                
+                            $queryStatus = $clienteDAO->insertCliente($clienteModel);
+                
+                            if($queryStatus){
+                                $response = $response->withJson([
+                                    "message" => "Cliente inserido com sucesso",
+                                    "error" => "false"
+                                ]);
+                            }
+                            else{
+                                $response = $response->withJson([
+                                    "message" => "Erro ao inserir o cliente",
+                                    "error" => "true"
+                                ]);
+                            }
                         }
                     }
                     else{

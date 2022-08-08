@@ -47,7 +47,8 @@
                     telefone,
                     data_nascimento,
                     cpf,
-                    email
+                    email,
+                    senha
                 FROM cliente
                 WHERE 
                     email = :email

@@ -1,6 +1,6 @@
 function loading() {
     Swal.fire({
-        title: "<img src='assets/gif_tel.gif'>",
+        title: "<div class='spinner-border hb-txt-secondary' role='status'><span class='sr-only'>Loading...</span></div>",
         showConfirmButton: false,
         allowOutsideClick: false,
         allowEscapeKey: false
@@ -57,18 +57,21 @@ function validateData(){
     let valid = true;
 
     fields.forEach(field => {
-        if(field.id != "login_operador"){
-            if(field.value == ""){
-                msg("error", "Erro!", "Preencha todos os campos");
-                valid = false;
+        if(field.value == ""){
+            msg("error", "Erro!", "Preencha todos os campos");
+            valid = false;
 
-                return false;
-            }
+            return false;
         }
     });
 
     return valid;
 }
+
+function validateEmail(email) {
+    var emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email);
+  }
 
 function toastrAlertSuccess(msg){
     toastr.success(`${msg}`);
@@ -82,7 +85,7 @@ function toastrAlertError(msg){
     toastr.error(`${msg}`);
 }
 
-function request(url, headers, method, callback, body = ''){
+function request(url, headers, method, body = '', callback){
     if(body == ''){
         fetch(url, {
             headers: headers,

@@ -47,6 +47,7 @@
                     telefone_admin,
                     cpf_admin,
                     email,
+                    senha,
                     nome, 
                     telefone,
                     cnpj,

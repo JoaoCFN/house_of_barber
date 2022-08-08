@@ -8,7 +8,7 @@
                             Crie sua conta 
                         </h4>
 
-                        <form class="pt-3" id="form_registro" method="post">
+                        <form class="pt-3" id="registrar_cliente" method="post">
                             <!-- campo de nome -->
                             <div class="form-group icone_dentro_input">
                                 <input 
@@ -16,7 +16,7 @@
                                     class="form-control hb-form-input" 
                                     id="nome" 
                                     placeholder="Seu nome"
-                                    name="nome"
+                                    name="nome_input"
                                 >
                                 <ion-icon name="person-outline" id="icone_nome">
                                 </ion-icon>
@@ -26,10 +26,10 @@
                             <div class="form-group icone_dentro_input">
                                 <input 
                                     type="text" 
-                                    class="form-control hb-form-input maskTelefone" 
+                                    class="form-control hb-form-input telefone-mask" 
                                     id="telefone" 
                                     placeholder="Telefone"
-                                    name="telefone"
+                                    name="telefone_input"
                                 >
                                 <ion-icon name="call-outline" id="icone_telefone">
                                 </ion-icon>
@@ -39,10 +39,10 @@
                             <div class="form-group icone_dentro_input">
                                 <input 
                                     type="date" 
-                                    class="form-control hb-form-input " 
+                                    class="form-control hb-form-input" 
                                     id="data_nascimento" 
                                     placeholder="Data Nascimento"
-                                    name="data_de_nascimento"
+                                    name="data_nascimento_input"
                                 >
                                 <ion-icon name="calendar-outline" id="icone_data_nascimento">
                                 </ion-icon>
@@ -52,10 +52,10 @@
                             <div class="form-group icone_dentro_input">
                                 <input 
                                     type="text" 
-                                    class="form-control hb-form-input maskCPF" 
+                                    class="form-control hb-form-input cpf-mask" 
                                     id="cpf" 
                                     placeholder="CPF"
-                                    name="cpf"
+                                    name="cpf_input"
                                 >
                                 <ion-icon name="card-outline" id="icone_cpf">
                                 </ion-icon>
@@ -70,7 +70,7 @@
                                     class="form-control hb-form-input" 
                                     id="email" 
                                     placeholder="E-mail"
-                                    name="email"
+                                    name="email_input"
                                 >
                                 <ion-icon name="mail-outline" id="icone_email">
                                 </ion-icon>
@@ -84,7 +84,7 @@
                                     class="form-control hb-form-input" 
                                     id="senha" 
                                     placeholder="Sua senha"
-                                    name="senha"
+                                    name="senha_input"
                                 >
                                 <ion-icon name="lock-closed-outline" id="icone_senha"></ion-icon>
                             </div>
@@ -97,7 +97,7 @@
                                     class="form-control hb-form-input" 
                                     id="confirmar_senha" 
                                     placeholder="Confirme sua senha"
-                                    name="confirmar_senha"
+                                    name="confirmar_senha_input"
                                 >
                                 <ion-icon name="lock-closed-outline" id="icone_senha"></ion-icon>
                             </div>
@@ -105,6 +105,7 @@
                             <button 
                                 type="button"
                                 class="btn fa-btn hb-btn-secondary hb-w-700 hb-full-width mt-2"
+                                id="btn_registar_cliente"
                                 name="cadastrar" 
                             >
                                 Cadastrar
@@ -113,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 col-sm-12 align-self-center" id="banner-registro">
+            <div class="col-md-7 col-sm-12 align-self-center text-center" id="banner-registro">
                 <img src="../assets/images/back-registro.jpg" alt="registro" id="img-registro">
             </div>
         </div>

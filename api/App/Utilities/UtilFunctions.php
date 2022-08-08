@@ -34,6 +34,8 @@
                     $queryStatus = $autenticarDAO->insertToken($autenticarModel);
 
                     if($queryStatus){
+                        unset($userData[0]['senha']);
+
                         return [
                             "message" => "Autenticado com sucesso",
                             "token" => $token,
@@ -58,8 +60,10 @@
                 }
             }
             else{
+                $typeAccess = $perfil == "ESTABELECIMENTO" ? "Estabelecimento" : "Cliente";
+
                 return [
-                    "message" => "Estabelecimento não cadastro. Por favor, realize seu cadastro.",
+                    "message" => "$typeAccess não cadastrado. Por favor, realize seu cadastro.",
                     "error" => "true"
                 ];
             }

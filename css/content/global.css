@@ -239,3 +239,22 @@
 .hb-cursor-text{
     cursor: text !important;
 }
+
+/* Sweet alert */
+.swal2-modal{
+    background-color: var(--primary) !important;
+}
+
+.swal2-title,
+#swal2-content{
+    color: var(--white) !important;
+}
+
+.swal2-confirm{
+    background-color: var(--secondary) !important;
+    color: var(--black) !important;
+}
+
+.swal2-cancel{
+    background-color: var(--third) !important;
+}

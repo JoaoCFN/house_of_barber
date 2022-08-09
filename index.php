@@ -23,4 +23,8 @@
         require_once "pages/registrar_barbearia/registrar_barbearia.php";
     });
 
+    $app->get('/cliente', function(){
+        require_once "pages/area_cliente/area_cliente.php";
+    });
+
     $app->run();

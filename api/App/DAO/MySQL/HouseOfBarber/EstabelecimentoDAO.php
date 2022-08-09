@@ -12,8 +12,28 @@
         public function getAll(): array
         {
             $query = "SELECT 
-                    *
+                    estabelecimento.nome,
+                    estabelecimento.tipo,
+                    estabelecimento.telefone,
+                    estabelecimento.cnpj,
+                    endereco.cep,
+                    endereco.cidade,
+                    endereco.bairro,
+                    endereco.rua,
+                    endereco.numero,
+                    CASE
+                        WHEN dias_funcionamento.dia IS NOT NULL 
+                            THEN dias_funcionamento.dia
+                        ELSE
+                            'FECHADO'
+                    END AS status_funcionamento,
+                    dias_funcionamento.horario_abertura,
+                    dias_funcionamento.horario_fechamento
                 FROM estabelecimento
+                LEFT JOIN endereco
+                ON estabelecimento.id = endereco.estabelecimento_id
+                LEFT JOIN dias_funcionamento
+                ON estabelecimento.id = dias_funcionamento.estabelecimento_id
             ";
 
             $estabelecimentos = $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);

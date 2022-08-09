@@ -2,44 +2,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.hb-navbar .nav-item{
-    padding: 0 10px;
-    font-size: 14px;
-}
-
-.hb-navbar .logo{
-    width: 140px;
-}
-
-.hb-navbar .nav-item .nav-link{
-    color: var(--white);
-}
-
-.hb-navbar .nav-item .nav-link:hover{
-    color: gray;
-}
-
-.hb-navbar .navbar-toggler i{
-    color: var(--white);
-    font-size: 24px;
-}
-
-.hb-navbar .navbar-toggler[aria-expanded="true"] .icon-close{
-    display: table;
-}
-
-.hb-navbar .navbar-toggler[aria-expanded="false"] .icon-close{
-	display: none;
-}
-
-.hb-navbar .navbar-toggler[aria-expanded="true"] .icon-open{
-	display: none;
-}
-
-.hb-navbar .navbar-toggler[aria-expanded="false"] .icon-open{
-    display: table;
-}
-
 .header-index{
     display: flex;
     align-items: center;

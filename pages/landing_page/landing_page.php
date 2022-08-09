@@ -20,6 +20,8 @@
 
         <!-- Landing page JS -->
         <script src="pages/landing_page/landing_page.js?v=<?php echo uniqid(); ?>"></script>
+        <!-- Footer JS -->
+        <script src="components/footer/footer.js?v=<?php echo uniqid(); ?>"></script>
         <!-- Anima rolagem JS -->
         <script src="js/anima_rolagem.js?v=<?php echo uniqid(); ?>"></script>
     </body>

@@ -1,13 +1,13 @@
 <section class="login hb-bg-black hb-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-7 col-sm-12 align-self-center" id="banner-login">
+            <div class="col-md-7 col-sm-12 align-self-center text-center" id="banner-login">
                 <img src="../assets/images/back-login.jpg" alt="login" id="img-login">
             </div>
             <div class="col-md-5 col-sm-12 align-self-center mt-4 mb-4">
                 <div class="card hb-card mb-3">
                     <div class="card-body">
-                        <form class="pt-3" id="form_login" method="post">
+                        <form class="pt-3" id="login_barbearia" method="post">
                             <!-- campo de email -->
                             <div class="form-group icone_dentro_input">
                                 <!-- O atributo onkeyup juntamente com a expressão regular impede que o espaços sejam digitados neste campo -->
@@ -17,7 +17,7 @@
                                     class="form-control hb-form-input" 
                                     id="login_email" 
                                     placeholder="E-mail"
-                                    name="email"
+                                    name="email_input"
                                 >
                                 <ion-icon name="mail-outline" id="icone_email">
                                 </ion-icon>
@@ -31,7 +31,7 @@
                                     class="form-control hb-form-input" 
                                     id="login_senha" 
                                     placeholder="Sua senha"
-                                    name="senha"
+                                    name="senha_input"
                                 >
                                 <ion-icon name="lock-closed-outline" id="icone_senha"></ion-icon>
                             </div>
@@ -51,7 +51,7 @@
                             <button 
                                 type="button"
                                 class="btn fa-btn hb-btn-secondary hb-w-700 hb-full-width mt-2"
-                                id="login-button"
+                                id="btn_login_barbearia"
                             >
                                 Entrar
                             </button>

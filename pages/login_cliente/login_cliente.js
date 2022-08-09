@@ -8,8 +8,8 @@
 
         if(dataIsValid){
             let body = {};
-            let headers = {'Content-Type': 'application/json'};
-
+            
+            const headers = {'Content-Type': 'application/json'};
             const {
                 email_input,
                 senha_input

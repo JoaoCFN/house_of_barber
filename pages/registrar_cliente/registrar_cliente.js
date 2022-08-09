@@ -8,8 +8,8 @@
 
         if(dataIsValid){
             let body = {};
-            let headers = {'Content-Type': 'application/json'};
-
+            
+            const headers = {'Content-Type': 'application/json'};
             const {
                 nome_input,
                 telefone_input,
@@ -47,7 +47,7 @@
 
             request(`../api/cliente`, headers, 'POST', body, (data) => {
                 if(data.error == "false"){
-                    msgWithRedirect("success", "Sucesso", "Conta criada com sucesso", "./login");
+                    msgWithRedirect("success", "Sucesso", data.message, "./login");
                 }
                 else{
                     msg("info", "Atenção", data.message);

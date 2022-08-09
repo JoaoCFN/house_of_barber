@@ -7,6 +7,10 @@ function loading() {
     });
 }
 
+function closeLoading(){
+    swal.close();
+}
+
 function msg(icon, title, text){
     Swal.fire({
         icon: `${icon}`,

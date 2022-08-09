@@ -27,7 +27,8 @@
     color: var(--white);
 }
 
-.registro_barbearia .icone_dentro_input i, ion-icon{
+.registro_barbearia .icone_dentro_input i, 
+.registro_barbearia .icone_dentro_input ion-icon{
     font-size: 20px;
     position: absolute;
     left: 0;
@@ -42,4 +43,12 @@
 
 .registro_barbearia #registro_uf{
     text-transform: uppercase;
+}
+
+.registro_barbearia #button_cep{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    height: 100%;
 }

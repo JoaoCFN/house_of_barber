@@ -82,12 +82,15 @@
                                 $estabelecimentoModel->setNome($data['nome']);
                                 $estabelecimentoModel->setTelefone($data['telefone']);
                                 $estabelecimentoModel->setCnpj($data['cnpj']);
-                    
-                                $queryStatus = $estabelecimentoDAO->insertEstabelecimento($estabelecimentoModel);
+                                
+                                $queryData = $estabelecimentoDAO->insertEstabelecimento($estabelecimentoModel);
+                                $queryStatus = $queryData[0];
+                                $insertedId = $queryData[1];
                     
                                 if($queryStatus){
                                     $response = $response->withJson([
-                                        "message" => "Estabelecimento inserido com sucesso",
+                                        "message" => "Estabelecimento cadastrado com sucesso",
+                                        "establishment_id" => $insertedId,
                                         "error" => "false"
                                     ]);
                                 }

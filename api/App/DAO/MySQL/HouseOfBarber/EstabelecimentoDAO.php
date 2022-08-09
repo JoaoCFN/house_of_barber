@@ -67,7 +67,7 @@
             return $estabelecimento;
         }
 
-        public function insertEstabelecimento(EstabelecimentoModel $estabelecimento): bool
+        public function insertEstabelecimento(EstabelecimentoModel $estabelecimento): array
         {
             $query = "INSERT INTO estabelecimento(
                 nome_admin,
@@ -107,7 +107,10 @@
                 "status" => "ATIVO"
             ]);
 
-            return $result;
+            return [
+                $result,
+                $result ? $this->pdo->lastInsertId() : 0
+            ];
         }
 
         public function updateEstabelecimento(EstabelecimentoModel $estabelecimento, int $id): bool

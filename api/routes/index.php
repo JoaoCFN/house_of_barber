@@ -9,7 +9,6 @@
     $app = new \Slim\App(slimConfiguration());
 
     $app->post('/autenticar', AutenticarController::class.':autenticar');
-    $app->get('/logout', AutenticarController::class.':logout');
 
     $app->post('/cliente', ClienteController::class.':insertCliente');
     $app->post('/estabelecimento', EstabelecimentoController::class.':insertEstabelecimento');

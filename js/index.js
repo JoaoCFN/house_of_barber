@@ -1,3 +1,14 @@
+function logout(profile){
+    Cookies.remove('user_token', { path: '/' });
+
+    if(profile == "CLIENTE"){
+        location.href = "cliente/login";
+    }
+    else if(profile == "ESTABELECIMENTO"){
+        location.href = "barbearia/login";
+    }
+}
+
 function loading() {
     Swal.fire({
         title: "<div class='spinner-border hb-txt-secondary' role='status'><span class='sr-only'>Loading...</span></div>",

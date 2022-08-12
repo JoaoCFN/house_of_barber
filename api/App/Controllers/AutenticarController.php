@@ -52,14 +52,14 @@
 
                             $userData = $estabelecimentoDAO->findUserByEmail($email);
                             
-                            $response = $response->withJson(UtilFunctions::userAuth($perfil, $email, $senha, $userData));
+                            $response = $response->withJson(UtilFunctions::userAuth($perfil, $senha, $userData));
                         }
                         else if($perfil == "CLIENTE"){
                             $clienteDAO = new ClienteDAO();
 
                             $userData = $clienteDAO->findUserByEmail($email);
 
-                            $response = $response->withJson(UtilFunctions::userAuth($perfil, $email, $senha, $userData));
+                            $response = $response->withJson(UtilFunctions::userAuth($perfil, $senha, $userData));
                         }
                         else{
                             $response = $response->withJson([
@@ -111,15 +111,5 @@
             }
 
             return $message;
-        }
-
-        public function logout(Request $request, Response $response, array $args): void
-        {
-            session_start();
-            session_unset();
-            session_destroy();
-
-            header('Location: ./../');
-            exit();
         }
     }

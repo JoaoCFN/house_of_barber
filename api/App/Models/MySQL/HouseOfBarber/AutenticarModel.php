@@ -3,12 +3,13 @@
 
     class AutenticarModel{
         private $idApiToken;
-        private $email;
+        private $idUsuario;
+        private $perfil;
         private $token;
         private $dataAcesso;
 
         /**
-         * Get the value of idApiTokens
+         * Get the value of idApiToken
          */
         public function getIdApiToken()
         {
@@ -16,21 +17,47 @@
         }
 
         /**
-         * Get the value of email
+         * Set the value of idApiToken
          */
-        public function getEmail()
+        public function setIdApiToken($idApiToken): self
         {
-            return $this->email;
+            $this->idApiToken = $idApiToken;
+
+            return $this;
         }
 
         /**
-         * Set the value of email
-         *
-         * @return  self
+         * Get the value of idUsuario
          */
-        public function setEmail($email)
+        public function getIdUsuario()
         {
-            $this->email = $email;
+            return $this->idUsuario;
+        }
+
+        /**
+         * Set the value of idUsuario
+         */
+        public function setIdUsuario($idUsuario): self
+        {
+            $this->idUsuario = $idUsuario;
+
+            return $this;
+        }
+
+        /**
+         * Get the value of perfil
+         */
+        public function getPerfil()
+        {
+            return $this->perfil;
+        }
+
+        /**
+         * Set the value of perfil
+         */
+        public function setPerfil($perfil): self
+        {
+            $this->perfil = $perfil;
 
             return $this;
         }
@@ -45,10 +72,8 @@
 
         /**
          * Set the value of token
-         *
-         * @return  self
          */
-        public function setToken($token)
+        public function setToken($token): self
         {
             $this->token = $token;
 
@@ -65,10 +90,8 @@
 
         /**
          * Set the value of dataAcesso
-         *
-         * @return  self
          */
-        public function setDataAcesso($dataAcesso)
+        public function setDataAcesso($dataAcesso): self
         {
             $this->dataAcesso = $dataAcesso;
 

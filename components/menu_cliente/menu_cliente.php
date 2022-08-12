@@ -45,9 +45,11 @@
                     </a>
                 </li>
                 <li class="nav-item align-self-center">
-                    <a class="nav-link hb-btn-outline-secondary hb-w-700 pr-3 pl-3" href="logout.php">
+                    <button
+                        class="nav-link hb-btn-outline-secondary hb-w-700 pr-3 pl-3" id="btn_logout"
+                    >
                         SAIR 
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>

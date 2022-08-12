@@ -28,27 +28,46 @@
             return $numRows;
         } 
 
+        public function findUserByToken(AutenticarModel $autenticarModel): array
+        {
+            $query = "SELECT
+                    id_usuario,
+                    perfil
+                FROM api_token
+                WHERE 
+                    DATE(data_acesso) = DATE(NOW())
+                    AND token = :token
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "token" => $autenticarModel->getToken()
+            ]);
+
+            $userData = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $userData;
+        }
+
         public function insertToken(AutenticarModel $autenticarModel): bool 
         {
             $query = "INSERT INTO api_token(
-                email,
+                id_usuario,
+                perfil,
                 token
             ) VALUES (
-                :email,
+                :id_usuario,
+                :perfil,
                 :token
             )";
 
             $statement = $this->pdo->prepare($query);
-            $statement = $statement->execute([
-                "email" => $autenticarModel->getEmail(),
+            $result = $statement->execute([
+                "id_usuario" => $autenticarModel->getIdUsuario(),
+                "perfil" => $autenticarModel->getPerfil(),
                 "token" => $autenticarModel->getToken()
             ]);
 
-            if($statement){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return $result;
         }
     }

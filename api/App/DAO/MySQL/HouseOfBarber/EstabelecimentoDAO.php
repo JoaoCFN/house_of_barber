@@ -63,6 +63,7 @@
         public function findUserByEmail(string $email): array
         {
             $query = "SELECT 
+                    id,
                     nome_admin,
                     telefone_admin,
                     cpf_admin,

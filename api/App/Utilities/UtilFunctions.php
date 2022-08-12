@@ -17,10 +17,11 @@
             return $filename;
         }
 
-        public static function userAuth(string $perfil, string $email, string $senha, array $userData): array
+        public static function userAuth(string $perfil, string $senha, array $userData): array
         {
             if($userData && count($userData) > 0){
                 $hashSenha = $userData[0]['senha'];
+                $idUsuario = $userData[0]['id'];
 
                 if(password_verify($senha, $hashSenha)){
                     $token = md5(uniqid() . mt_rand());
@@ -28,7 +29,8 @@
                     $autenticarModel = new AutenticarModel();
                     $autenticarDAO = new AutenticarDAO();
 
-                    $autenticarModel->setEmail($email);
+                    $autenticarModel->setIdUsuario($idUsuario);
+                    $autenticarModel->setPerfil($perfil);
                     $autenticarModel->setToken($token);
 
                     $queryStatus = $autenticarDAO->insertToken($autenticarModel);
@@ -40,7 +42,6 @@
                             "message" => "Autenticado com sucesso",
                             "token" => $token,
                             "duration" => "Até o final do dia vigente",
-                            "user_data" => $userData,
                             "type_access" => $perfil,
                             "error" => "false"
                         ];

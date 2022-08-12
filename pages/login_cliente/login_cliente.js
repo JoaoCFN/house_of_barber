@@ -34,7 +34,9 @@
 
             request(`../api/autenticar`, headers, 'POST', body, (data) => {
                 if(data.error == "false"){
-                    location.href = "../cliente";
+                    Cookies.set("user_token",  data.token);
+
+                    location.href = "/house_of_barber/cliente";
                 }
                 else{
                     msg("info", "Atenção", data.message);

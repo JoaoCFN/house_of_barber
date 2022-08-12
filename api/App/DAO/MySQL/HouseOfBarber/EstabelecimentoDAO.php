@@ -12,6 +12,7 @@
         public function getAll(): array
         {
             $query = "SELECT 
+                    estabelecimento.id AS estabelecimento_id,
                     estabelecimento.nome,
                     estabelecimento.tipo,
                     estabelecimento.telefone,

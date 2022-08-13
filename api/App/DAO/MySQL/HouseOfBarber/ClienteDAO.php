@@ -105,11 +105,7 @@
                 SET
                     nome = :nome,
                     telefone = :telefone,
-                    data_nascimento = :data_nascimento,
-                    cpf = :cpf,
-                    email = :email,
-                    senha = :senha,
-                    sub_google = :sub_google
+                    data_nascimento = :data_nascimento
             WHERE id = :id";
 
             $statement = $this->pdo->prepare($query);
@@ -117,10 +113,6 @@
                 "nome" => $cliente->getNome(),
                 "telefone" => $cliente->getTelefone(),
                 "data_nascimento" => $cliente->getDataNascimento(),
-                "cpf" => $cliente->getCpf(),
-                "email" => $cliente->getEmail(),
-                "senha" => $cliente->getSenha(),
-                "sub_google" => "",
                 "id" => $id
             ]);
 

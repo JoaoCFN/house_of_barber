@@ -1,8 +1,20 @@
+<?php 
+    $logoSrc = "";
+
+    if(substr_count($_SERVER["REQUEST_URI"], "/") == 3){
+        $logoSrc = "../assets/images/logo-invertida.png";
+    }
+    else{
+        $logoSrc = "assets/images/logo-invertida.png";
+    }
+?>
+
 <nav class="hb-navbar navbar navbar-expand-lg hb-bg-black fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/house_of_barber/cliente">
+            
             <img 
-                src="assets/images/logo-invertida.png" 
+                src="<?php echo $logoSrc; ?>" 
                 alt="logo"
                 class="logo"
             />
@@ -37,9 +49,7 @@
                 <li class="nav-item align-self-center">                   
                     <a 
                         class="nav-link" 
-                        data-toggle="modal"
-                        data-target="#modal-perfil"
-                        href="#"
+                        href="/house_of_barber/cliente/perfil"
                     >
                         PERFIL
                     </a>

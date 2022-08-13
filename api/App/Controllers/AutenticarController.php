@@ -93,7 +93,7 @@
             $autenticarDAO = new AutenticarDAO();
             $autenticarModel = new AutenticarModel();
 
-            if (isset($headers['HTTP_TOKEN'])) {
+            if(isset($headers['HTTP_TOKEN'])){
                 $token = $headers['HTTP_TOKEN'][0];
                 
                 $autenticarModel->setToken($token);

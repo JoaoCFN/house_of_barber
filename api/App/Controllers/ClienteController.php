@@ -7,6 +7,8 @@
     use App\DAO\MySQL\HouseOfBarber\ClienteDAO;
     use App\Models\MySQL\HouseOfBarber\ClienteModel;
     use App\Assets\BaseLib\App\Utilities;
+    use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
+    use App\Models\MySQL\HouseOfBarber\AutenticarModel;
 
     final class ClienteController{
         public function getClientes(Request $request, Response $response, array $args): Response 
@@ -40,6 +42,56 @@
             else{
                 $response = $response->withJson([
                     "message" => "Informe o id",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function getUserWithToken(Request $request, Response $response, array $args): Response 
+        {   
+            $headers = $request->getHeaders();
+
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
+
+                $autenticarModel->setToken($token);
+
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+                if($tokenData && count($tokenData) > 0){
+                    $idUsuario = $tokenData[0]["id_usuario"];
+
+                    $clienteDAO = new ClienteDAO();
+                    $cliente = $clienteDAO->findById($idUsuario);
+
+                    if($cliente && count($cliente) > 0){
+                        unset($cliente[0]['id']);
+                        unset($cliente[0]['senha']);
+
+                        $response = $response->withJson($cliente);
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Usuário não encontrado",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Token inválido",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }
@@ -122,88 +174,75 @@
         
         public function updateCliente(Request $request, Response $response, array $args): Response 
         {
+            $headers = $request->getHeaders();
             $data = $request->getParsedBody();
 
-            if($data && count($data) > 0){
-                $fieldsNecessary = ['id', 'nome'];
-                $data = Utilities::treatRequestBody($data, 'PDO');
-
-                $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
-
-                if($correctFieldsInformed){
-                    $id = $data['id'];
-
-                    if(is_numeric($id)){
-                        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-                            if(strlen($data['senha']) >= 8){
-                                $clienteModel = new ClienteModel();
-                                $clienteDAO = new ClienteDAO();
-
-                                $userData = $clienteDAO->findUserByEmail($data['email']);
-
-                                if($userData && count($userData) > 0){
-                                    $response = $response->withJson([
-                                        "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
-                                        "error" => "true"
-                                    ]);
-                                }
-                                else{
-                                    $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
                 
-                                    $clienteModel->setNome($data['nome']);
-                                    $clienteModel->setTelefone($data['telefone']);
-                                    $clienteModel->setDataNascimento($data['data_nascimento']);
-                                    $clienteModel->setCpf($data['cpf']);
-                                    $clienteModel->setEmail($data['email']);
-                                    $clienteModel->setSenha($hashSenha);
-                
-                                    $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
-                
-                                    if($queryStatus){
-                                        $response = $response->withJson([
-                                            "message" => "Cliente atualizado com sucesso",
-                                            "error" => "false"
-                                        ]);
-                                    }
-                                    else{
-                                        $response = $response->withJson([
-                                            "message" => "Erro ao atualizar o cliente",
-                                            "error" => "true"
-                                        ]);
-                                    }
-                                }
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
+
+                $autenticarModel->setToken($token);
+
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+                if($tokenData && count($tokenData) > 0){
+                    $id = $tokenData[0]["id_usuario"];
+
+                    if($data && count($data) > 0){
+                        $fieldsNecessary = ['nome', 'telefone', 'data_nascimento'];
+                        $data = Utilities::treatRequestBody($data, 'PDO');
+
+                        $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+                        if($correctFieldsInformed){
+                            $clienteDAO = new clienteDAO();
+                            $clienteModel = new ClienteModel();
+
+                            $clienteModel->setNome($data['nome']);
+                            $clienteModel->setTelefone($data['telefone']);
+                            $clienteModel->setDataNascimento($data['data_nascimento']);
+        
+                            $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
+        
+                            if($queryStatus){
+                                $response = $response->withJson([
+                                    "message" => "Cliente atualizado com sucesso",
+                                    "error" => "false"
+                                ]);
                             }
                             else{
                                 $response = $response->withJson([
-                                    "message" => "Informe uma senha com no mínimo 8 caracteres",
+                                    "message" => "Erro ao atualizar o cliente",
                                     "error" => "true"
                                 ]);
                             }
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Informe um email em um formato válido",
+                                "message" => "Informe todos os campos necessários para a atualização",
                                 "error" => "true"
                             ]);
                         }
                     }
                     else{
                         $response = $response->withJson([
-                            "message" => "Informe um id númerico",
+                            "message" => "Informe o campos a serem atualizados",
                             "error" => "true"
                         ]);
                     }
                 }
                 else{
                     $response = $response->withJson([
-                        "message" => "Informe todos os campos necessários para a atualização",
+                        "message" => "Token inválido",
                         "error" => "true"
                     ]);
                 }
             }
             else{
                 $response = $response->withJson([
-                    "message" => "Informe o campos a serem atualizados",
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }

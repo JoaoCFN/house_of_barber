@@ -29,6 +29,10 @@
         $app->get('/cliente[/]', function(){
             require_once "pages/area_cliente/area_cliente.php";
         });
+
+        $app->get('/cliente/perfil', function(){
+            require_once "pages/perfil_cliente/perfil_cliente.php";
+        });
     })->add($verifyAuthCliente);
 
     $app->run();

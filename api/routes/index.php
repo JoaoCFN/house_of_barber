@@ -17,6 +17,7 @@
     $app->group('', function () use ($app){
         $app->get('/clientes', ClienteController::class.':getClientes');
         $app->get('/cliente[/{id}]', ClienteController::class.':getCliente');
+        $app->get('/clientes/token', ClienteController::class.':getUserWithToken');
         $app->put('/cliente', ClienteController::class.':updateCliente');
         $app->delete('/cliente', ClienteController::class.':deleteCliente');
     

@@ -1,4 +1,4 @@
-function buildClienteArea(){
+const buildClienteArea = () =>{
     loading();
 
     const token = Cookies.get('user_token');
@@ -12,7 +12,7 @@ function buildClienteArea(){
         const cardsBarbeariaWrapper = document.querySelector("#cards-barbearias");
 
         if(data.error == "true"){
-            msgWithRedirect("error", "Ooops!", "Estamos passando por algum problema. Aguarde alguns instantes e tente novamente.", "/house_of_barber")
+            msgWithRedirect("error", "Ooops!", data.message, "/house_of_barber");
         }
         else{
             if(data && data.length > 0){

@@ -1,9 +1,20 @@
+<?php 
+    $logoSrc = "";
+
+    if(substr_count($_SERVER["REQUEST_URI"], "/") == 3){
+        $logoSrc = "../assets/images/logo-invertida.png";
+    }
+    else{
+        $logoSrc = "assets/images/logo-invertida.png";
+    }
+?>
+
 <footer class="footer pt-2 pb-3">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-4 hb-order-0">
                 <img 
-                    src="assets/images/logo-invertida.png" 
+                    src="<?php echo $logoSrc; ?>" 
                     class="mb-3"
                 />
             </div>

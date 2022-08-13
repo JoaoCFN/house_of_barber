@@ -4,7 +4,8 @@
     use App\Controllers\ClienteController;
     use App\Controllers\EstabelecimentoController;
     use App\Controllers\AutenticarController;
-    use App\Controllers\EnderecoController;
+use App\Controllers\DiasFuncionamentoController;
+use App\Controllers\EnderecoController;
 use App\Controllers\ServicoController;
 
     $app = new \Slim\App(slimConfiguration());
@@ -38,6 +39,13 @@ use App\Controllers\ServicoController;
         $app->post('/servico', ServicoController::class.':insertServico');
         $app->put('/servico', ServicoController::class.':updateServico');
         $app->delete('/servico', ServicoController::class.':deleteServico');
+
+        $app->get('/dias_funcionamento', DiasFuncionamentoController::class.':getDiasFuncionamento');
+        $app->get('/dia_funcionamento[/{id}]', DiasFuncionamentoController::class.':getDiaFuncionamento');
+        $app->get('/dia_funcionamento/estabelecimento', DiasFuncionamentoController::class.':getDiaFuncionamentoWithEstabelecimentoId');
+        $app->post('/dia_funcionamento', DiasFuncionamentoController::class.':insertDiaFuncionamento');
+        $app->put('/dia_funcionamento', DiasFuncionamentoController::class.':updateDiaFuncionamento');
+        $app->delete('/dia_funcionamento', DiasFuncionamentoController::class.':deleteDiaFuncionamento');
     })->add($verifyAuth);
 
     $app->run();

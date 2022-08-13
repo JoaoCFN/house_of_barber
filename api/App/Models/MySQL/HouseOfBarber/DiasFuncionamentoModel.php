@@ -1,10 +1,11 @@
 <?php 
     namespace App\Models\MySQL\HouseOfBarber;
 
-    class ServicoModel{
+    class DiasFuncionamentoModel{
        private $id;
-       private $nome;
-       private $valor;
+       private $dia;
+       private $horarioAbertura;
+       private $horarioFechamento;
        private $estabelecimentoId;
 
         /**
@@ -26,37 +27,55 @@
         }
 
         /**
-        * Get the value of nome
+        * Get the value of dia
         */
-        public function getNome()
+        public function getDia()
         {
-            return $this->nome;
+            return $this->dia;
         }
 
         /**
-        * Set the value of nome
+        * Set the value of dia
         */
-        public function setNome($nome): self
+        public function setDia($dia): self
         {
-            $this->nome = $nome;
+            $this->dia = $dia;
 
             return $this;
         }
 
         /**
-        * Get the value of valor
+        * Get the value of horarioAbertura
         */
-        public function getValor()
+        public function getHorarioAbertura()
         {
-            return $this->valor;
+            return $this->horarioAbertura;
         }
 
         /**
-        * Set the value of valor
+        * Set the value of horarioAbertura
         */
-        public function setValor($valor): self
+        public function setHorarioAbertura($horarioAbertura): self
         {
-            $this->valor = $valor;
+            $this->horarioAbertura = $horarioAbertura;
+
+            return $this;
+        }
+
+        /**
+        * Get the value of horarioFechamento
+        */
+        public function getHorarioFechamento()
+        {
+            return $this->horarioFechamento;
+        }
+
+        /**
+        * Set the value of horarioFechamento
+        */
+        public function setHorarioFechamento($horarioFechamento): self
+        {
+            $this->horarioFechamento = $horarioFechamento;
 
             return $this;
         }

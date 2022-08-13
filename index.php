@@ -1,6 +1,7 @@
 <?php
     require 'api/vendor/autoload.php';
-    require 'config/verifyAuthCliente.php';
+    require 'config/verifyAuth.php';
+    require 'config/functions.php';
     require 'env.php';
 
     $app = new \Slim\App;
@@ -34,5 +35,15 @@
             require_once "pages/perfil_cliente/perfil_cliente.php";
         });
     })->add($verifyAuthCliente);
+
+    $app->group('', function() use ($app){
+        $app->get('/barbearia[/]', function(){
+            require_once "pages/barbearia/barbearia.php";
+        });
+
+        $app->get('/barbearia/servicos', function(){
+            require_once "pages/servicos_barbearia/servicos_barbearia.php";
+        });
+    })->add($verifyAuthBarbearia);
 
     $app->run();

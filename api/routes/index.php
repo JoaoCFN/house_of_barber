@@ -5,6 +5,7 @@
     use App\Controllers\EstabelecimentoController;
     use App\Controllers\AutenticarController;
     use App\Controllers\EnderecoController;
+use App\Controllers\ServicoController;
 
     $app = new \Slim\App(slimConfiguration());
 
@@ -30,6 +31,13 @@
         $app->get('/endereco[/{id}]', EnderecoController::class.':getEndereco');
         $app->put('/endereco', EnderecoController::class.':updateEndereco');
         $app->delete('/endereco', EnderecoController::class.':deleteEndereco');
+
+        $app->get('/servicos', ServicoController::class.':getServicos');
+        $app->get('/servico[/{id}]', ServicoController::class.':getServico');
+        $app->get('/servicos/estabelecimento', ServicoController::class.':getServicoWithEstabelecimentoId');
+        $app->post('/servico', ServicoController::class.':insertServico');
+        $app->put('/servico', ServicoController::class.':updateServico');
+        $app->delete('/servico', ServicoController::class.':deleteServico');
     })->add($verifyAuth);
 
     $app->run();

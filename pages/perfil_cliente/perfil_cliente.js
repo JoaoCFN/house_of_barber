@@ -101,33 +101,37 @@ const cancelEdition = (e) => {
 };
 
 const saveProfileChanges = (e) => {
-    loading();
+    msgWithConfirm('info', 'Atenção', 'Deseja editar seus dados?', 'Deletar', (event) => {
+        if(event.isConfirmed){
+            loading();
 
-    const token = Cookies.get('user_token');
+            const token = Cookies.get('user_token');
 
-    const headers = {
-        'Content-Type': 'application/json',
-        'token': token
-    };
+            const headers = {
+                'Content-Type': 'application/json',
+                'token': token
+            };
 
-    const {
-        nome_input,
-        telefone_input,
-        data_nascimento_input
-    } = document.forms.perfil_cliente;
+            const {
+                nome_input,
+                telefone_input,
+                data_nascimento_input
+            } = document.forms.perfil_cliente;
 
-    let body = {
-        nome: nome_input.value,
-        telefone: telefone_input.value,
-        data_nascimento: data_nascimento_input.value
-    }
+            let body = {
+                nome: nome_input.value,
+                telefone: telefone_input.value,
+                data_nascimento: data_nascimento_input.value
+            }
 
-    request(`${apiPath}/cliente`, headers, 'PUT', body, (data) => {
-        if(data.error == "false"){
-            msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/cliente/perfil");
-        }
-        else{
-            msg("info", "Atenção", data.message);
+            request(`${apiPath}/cliente`, headers, 'PUT', body, (data) => {
+                if(data.error == "false"){
+                    msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/cliente/perfil");
+                }
+                else{
+                    msg("info", "Atenção", data.message);
+                }
+            });
         }
     });
 };

@@ -34,7 +34,9 @@
 
             request(`../api/autenticar`, headers, 'POST', body, (data) => {
                 if(data.error == "false"){
-                    location.href = "../barbearia";
+                    Cookies.set("user_token",  data.token, { path: '/' });
+
+                    location.href = "/house_of_barber/barbearia";
                 }
                 else{
                     msg("info", "Atenção", data.message);

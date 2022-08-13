@@ -1,0 +1,16 @@
+.box-legend-text {
+    font-size: .9rem;
+}
+
+.box-legend-icon {
+    font-size: 1.125rem;
+}
+
+#graph-qtd-total-entrantes {
+    width: 100%;
+    height: auto;
+}
+
+.hb-card .card-body h5 {
+    text-align: end;
+}

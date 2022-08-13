@@ -2,10 +2,10 @@ function logout(profile){
     Cookies.remove('user_token', { path: '/' });
 
     if(profile == "CLIENTE"){
-        location.href = "cliente/login";
+        location.href = "/house_of_barber/cliente/login";
     }
     else if(profile == "ESTABELECIMENTO"){
-        location.href = "barbearia/login";
+        location.href = "/house_of_barber/barbearia/login";
     }
 }
 

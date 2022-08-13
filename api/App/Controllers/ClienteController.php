@@ -177,72 +177,64 @@
             $headers = $request->getHeaders();
             $data = $request->getParsedBody();
 
-            if(isset($headers['HTTP_TOKEN'])){
-                $token = $headers['HTTP_TOKEN'][0];
-                
-                $autenticarDAO = new AutenticarDAO();
-                $autenticarModel = new AutenticarModel();
+            $token = $headers['HTTP_TOKEN'][0];
+            
+            $autenticarDAO = new AutenticarDAO();
+            $autenticarModel = new AutenticarModel();
 
-                $autenticarModel->setToken($token);
+            $autenticarModel->setToken($token);
 
-                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+            $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
 
-                if($tokenData && count($tokenData) > 0){
-                    $id = $tokenData[0]["id_usuario"];
+            if($tokenData && count($tokenData) > 0){
+                $id = $tokenData[0]["id_usuario"];
 
-                    if($data && count($data) > 0){
-                        $fieldsNecessary = ['nome', 'telefone', 'data_nascimento'];
-                        $data = Utilities::treatRequestBody($data, 'PDO');
+                if($data && count($data) > 0){
+                    $fieldsNecessary = ['nome', 'telefone', 'data_nascimento'];
+                    $data = Utilities::treatRequestBody($data, 'PDO');
 
-                        $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+                    $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
 
-                        if($correctFieldsInformed){
-                            $clienteDAO = new clienteDAO();
-                            $clienteModel = new ClienteModel();
+                    if($correctFieldsInformed){
+                        $clienteDAO = new clienteDAO();
+                        $clienteModel = new ClienteModel();
 
-                            $clienteModel->setNome($data['nome']);
-                            $clienteModel->setTelefone($data['telefone']);
-                            $clienteModel->setDataNascimento($data['data_nascimento']);
-        
-                            $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
-        
-                            if($queryStatus){
-                                $response = $response->withJson([
-                                    "message" => "Cliente atualizado com sucesso",
-                                    "error" => "false"
-                                ]);
-                            }
-                            else{
-                                $response = $response->withJson([
-                                    "message" => "Erro ao atualizar o cliente",
-                                    "error" => "true"
-                                ]);
-                            }
+                        $clienteModel->setNome($data['nome']);
+                        $clienteModel->setTelefone($data['telefone']);
+                        $clienteModel->setDataNascimento($data['data_nascimento']);
+    
+                        $queryStatus = $clienteDAO->updateCliente($clienteModel, $id);
+    
+                        if($queryStatus){
+                            $response = $response->withJson([
+                                "message" => "Cliente atualizado com sucesso",
+                                "error" => "false"
+                            ]);
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Informe todos os campos necessários para a atualização",
+                                "message" => "Erro ao atualizar o cliente",
                                 "error" => "true"
                             ]);
                         }
                     }
                     else{
                         $response = $response->withJson([
-                            "message" => "Informe o campos a serem atualizados",
+                            "message" => "Informe todos os campos necessários para a atualização",
                             "error" => "true"
                         ]);
                     }
                 }
                 else{
                     $response = $response->withJson([
-                        "message" => "Token inválido",
+                        "message" => "Informe o campos a serem atualizados",
                         "error" => "true"
                     ]);
                 }
             }
             else{
                 $response = $response->withJson([
-                    "message" => "Informe o token do usuário logado",
+                    "message" => "Token inválido",
                     "error" => "true"
                 ]);
             }

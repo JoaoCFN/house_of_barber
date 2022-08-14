@@ -1,0 +1,30 @@
+#inserir_dia_funcionamento .icone_dentro_input,
+#editar_dia_funcionamento .icone_dentro_input {
+    position: relative;
+}
+
+#inserir_dia_funcionamento .icone_dentro_input input,
+#editar_dia_funcionamento .icone_dentro_input input{
+    padding-left: 40px;
+    height: 3rem;
+    color: var(--white);
+}
+
+#inserir_dia_funcionamento .icone_dentro_input i, 
+#inserir_dia_funcionamento .icone_dentro_input ion-icon,
+#editar_dia_funcionamento .icone_dentro_input i,
+#editar_dia_funcionamento .icone_dentro_input ion-icon{
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.95rem;
+    padding: 0px 10px;
+    color: var(--white);
+}
+
+#inserir_dia_funcionamento .card .area_alt,
+#inserir_dia_funcionamento .card .area_alt i,
+#editar_dia_funcionamento .card .area_alt,
+#editar_dia_funcionamento .card .area_alt i{
+    text-align: center;
+}

@@ -103,35 +103,44 @@ const cancelEdition = (e) => {
 const saveProfileChanges = (e) => {
     msgWithConfirm('info', 'Atenção', 'Deseja editar seus dados?', 'Deletar', (event) => {
         if(event.isConfirmed){
-            loading();
+            let dataIsValid = validateData();
 
-            const token = Cookies.get('user_token');
-
-            const headers = {
-                'Content-Type': 'application/json',
-                'token': token
-            };
-
-            const {
-                nome_input,
-                telefone_input,
-                data_nascimento_input
-            } = document.forms.perfil_cliente;
-
-            let body = {
-                nome: nome_input.value,
-                telefone: telefone_input.value,
-                data_nascimento: data_nascimento_input.value
+            if(dataIsValid){
+                loading();
+    
+                const token = Cookies.get('user_token');
+    
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'token': token
+                };
+    
+                const {
+                    nome_input,
+                    telefone_input,
+                    data_nascimento_input
+                } = document.forms.perfil_cliente;
+    
+                let body = {
+                    nome: nome_input.value,
+                    telefone: telefone_input.value,
+                    data_nascimento: data_nascimento_input.value
+                }
+    
+                request(`${apiPath}/cliente`, headers, 'PUT', body, (data) => {
+                    if(data.error == "false"){
+                        msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/cliente/perfil");
+                    }
+                    else{
+                        msg("info", "Atenção", data.message);
+                    }
+                });
             }
+            else{
+                msg("info", "Atenção", "Preencha todos os campos");
 
-            request(`${apiPath}/cliente`, headers, 'PUT', body, (data) => {
-                if(data.error == "false"){
-                    msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/cliente/perfil");
-                }
-                else{
-                    msg("info", "Atenção", data.message);
-                }
-            });
+                return
+            }
         }
     });
 };

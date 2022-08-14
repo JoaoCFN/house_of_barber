@@ -26,7 +26,7 @@
         <?php
             createSidebarItem('Dashboard', 'Dashboard', "$pathRoutes", 'bx bx-grid-alt', 'dashboard');
             createSidebarItem('Agendamentos', 'Agendamentos', "$pathRoutes/agendamentos", 'bx bx-calendar', 'agendamentos');
-            createSidebarItem('Horários', 'Horários', "$pathRoutes/horarios", 'bx bx-time-five', 'horarios');
+            createSidebarItem('Horários', 'Horários', "$pathRoutes/dias_funcionamento", 'bx bx-time-five', 'horarios');
             createSidebarItem('Serviços', 'Serviços', "$pathRoutes/servicos", 'bx bx-list-ul', 'servicos');
             createSidebarItem('Avaliações', 'Avaliações', '#', 'bx bx-star', 'avaliacoes');
             createSidebarItem('Estabelecimento', 'Estabelecimento', "$pathRoutes/estabelecimento", 'bx bx-user', 'estabelecimento');

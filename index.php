@@ -44,6 +44,10 @@
         $app->get('/barbearia/servicos', function(){
             require_once "pages/servicos_barbearia/servicos_barbearia.php";
         });
+
+        $app->get('/barbearia/dias_funcionamento', function(){
+            require_once "pages/dias_funcionamento/dias_funcionamento.php";
+        });
     })->add($verifyAuthBarbearia);
 
     $app->run();

@@ -3,11 +3,11 @@
         <div class="hb-flex-between">
             <div>
                 <h4 class="hb-txt-secondary hb-w-700">
-                    <i class="bx bx-list-ul"></i>
-                    <span>Serviços</span>
+                    <i class="bx bx-time"></i>
+                    <span>Dias de funcionamento</span>
                 </h4>
                 <p class="hb-txt-white hb-w-400">
-                    Aqui você tem o controle dos serviços que sua Barbearia oferece. Ainda não tem nenhum serviço cadastrado? Comece o cadastro interagindo com a tabela abaixo
+                    Aqui você tem o controle dos dias de funcionamento da sua barbearia. Ainda não tem nenhum dia de funcionamento cadastrado? Comece o cadastro interagindo com a tabela abaixo.
                 </p>
             </div>
 
@@ -15,23 +15,24 @@
                 <button 
                     class="btn hb-btn-secondary-circle"
                     data-toggle='modal' 
-                    data-target='#modal-inserir-servico'
+                    data-target='#modal-inserir-dia-funcionamento'
                 >
-                    <i class='bx bx-list-ul'></i>
+                    <i class='bx bx-time'></i>
                 </button>
             </div>
         </div>
 
         <table 
-            id="table-servicos-barbearia" 
+            id="table-dias-funcionamento-barbearia" 
             class="table table-responsive-sm" style="width: 100%"
         >
             <thead
                 class="hb-bg-primary hb-txt-white"
             >
                 <tr>
-                    <th>Nome</th>
-                    <th>Valor</th>
+                    <th>Dia</th>
+                    <th>Horário de abertura</th>
+                    <th>Horário de fechamento</th>
                     <th>Editar</th>
                     <th>Deletar</th>
                 </tr>
@@ -47,7 +48,7 @@
 <!-- Modal Inserir -->
 <div 
     class="modal fade" 
-    id="modal-inserir-servico" 
+    id="modal-inserir-dia-funcionamento" 
     tabindex="-1" 
     role="dialog" 
     aria-hidden="true"
@@ -56,40 +57,57 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title hb-w-700 hb-txt-secondary">
-                    Inserir serviço
+                    Inserir dia de funcionamento
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="pt-3" id="inserir_servico" method="post">
+                <form class="pt-3" id="inserir_dia_funcionamento" method="post">
+                    <div class="form-group icone_dentro_input">
+                        <div class="form-group">
+                            <select 
+                                class="form-control hb-form-input" 
+                                id="dia" 
+                                name="dia_input"
+                            >
+                                <option value="">Dia de funcionamento</option>
+                                <option value="0">Segunda-feira</option>
+                                <option value="1">Terça-feira</option>
+                                <option value="2">Quarta-feira</option>
+                                <option value="3">Quinta-feira</option>
+                                <option value="4">Sexta-feira</option>
+                                <option value="5">Sábado</option>
+                                <option value="6">Domingo</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <!-- campo de nome -->
                             <div class="form-group icone_dentro_input">
                                 <input 
                                     type="text" 
-                                    class="form-control hb-form-input" 
-                                    id="nome" 
-                                    placeholder="Nome do serviço"
-                                    name="nome_input"
+                                    class="form-control hb-form-input horario-mask" 
+                                    id="horario_abertura" 
+                                    placeholder="Horário de abertura"
+                                    name="horario_abertura_input"
                                 >
-                                <ion-icon name="list-outline" id="icone_servico">
+                                <ion-icon name="time-outline" id="icone_horario_abertura">
                                 </ion-icon>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                             <!-- campo de valor -->
                             <div class="form-group icone_dentro_input">
                                 <input 
-                                    type="number" 
-                                    class="form-control hb-form-input" 
-                                    id="valor" 
-                                    placeholder="Valor do serviço"
-                                    name="valor_input"
+                                    type="text" 
+                                    class="form-control hb-form-input horario-mask" 
+                                    id="horario_fechamento" 
+                                    placeholder="Horário de fechamento"
+                                    name="horario_fechamento_input"
                                 >
-                                <ion-icon name="cash-outline" id="icone_valor">
+                                <ion-icon name="time-outline" id="icone_horario_fechamento">
                                 </ion-icon>
                             </div>
                         </div>
@@ -99,8 +117,8 @@
                         <button 
                             type="button"
                             class="btn hb-btn-secondary-default hb-w-700"
-                            id="btn_inserir_servico"
-                            onclick="insertService()"
+                            id="btn_inserir_dia_funcionamento"
+                            onclick="insertOperatingDay()"
                         >
                             Salvar
                         </button>
@@ -114,7 +132,7 @@
 <!-- Modal Editar -->
 <div 
     class="modal fade" 
-    id="modal-editar-servico" 
+    id="modal-editar-dia-funcionamento" 
     tabindex="-1" 
     role="dialog" 
     aria-hidden="true"
@@ -123,42 +141,60 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title hb-w-700 hb-txt-secondary">
-                    Editar serviço
+                    Editar dia de funcionamento
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="pt-3" id="editar_servico" method="post">
+                <form class="pt-3" id="editar_dia_funcionamento" method="post">
+                    <div class="form-group icone_dentro_input">
+                        <div class="form-group">
+                            <select 
+                                class="form-control hb-form-input" 
+                                id="dia" 
+                                name="dia_input"
+                                disabled="disabled"
+                            >
+                                <option value="">Dia de funcionamento</option>
+                                <option value="0">Segunda-feira</option>
+                                <option value="1">Terça-feira</option>
+                                <option value="2">Quarta-feira</option>
+                                <option value="3">Quinta-feira</option>
+                                <option value="4">Sexta-feira</option>
+                                <option value="5">Sábado</option>
+                                <option value="6">Domingo</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <!-- campo de nome -->
                             <div class="form-group icone_dentro_input">
                                 <input 
                                     type="text" 
                                     class="form-control hb-form-input" 
-                                    id="nome" 
-                                    placeholder="Nome do serviço"
-                                    name="nome_input"
+                                    id="horario_abertura" 
+                                    placeholder="Horário de abertura"
+                                    name="horario_abertura_input"
                                     disabled="disabled"
                                 >
-                                <ion-icon name="list-outline" id="icone_servico">
+                                <ion-icon name="time-outline" id="icone_horario_abertura">
                                 </ion-icon>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                             <!-- campo de valor -->
                             <div class="form-group icone_dentro_input">
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     class="form-control hb-form-input" 
-                                    id="valor" 
-                                    placeholder="Valor do serviço"
-                                    name="valor_input"
+                                    id="horario_fechamento" 
+                                    placeholder="Horário de fechamento"
+                                    name="horario_fechamento_input"
                                     disabled="disabled"
                                 >
-                                <ion-icon name="cash-outline" id="icone_valor">
+                                <ion-icon name="time-outline" id="icone_horario_fechamento">
                                 </ion-icon>
                             </div>
                         </div>

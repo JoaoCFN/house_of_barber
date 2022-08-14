@@ -42,7 +42,7 @@ use App\Controllers\ServicoController;
 
         $app->get('/dias_funcionamento', DiasFuncionamentoController::class.':getDiasFuncionamento');
         $app->get('/dia_funcionamento[/{id}]', DiasFuncionamentoController::class.':getDiaFuncionamento');
-        $app->get('/dia_funcionamento/estabelecimento', DiasFuncionamentoController::class.':getDiaFuncionamentoWithEstabelecimentoId');
+        $app->get('/dias_funcionamento/estabelecimento', DiasFuncionamentoController::class.':getDiaFuncionamentoWithEstabelecimentoId');
         $app->post('/dia_funcionamento', DiasFuncionamentoController::class.':insertDiaFuncionamento');
         $app->put('/dia_funcionamento', DiasFuncionamentoController::class.':updateDiaFuncionamento');
         $app->delete('/dia_funcionamento', DiasFuncionamentoController::class.':deleteDiaFuncionamento');

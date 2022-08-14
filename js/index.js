@@ -83,6 +83,24 @@ function validateData(){
     return valid;
 }
 
+function validateDataForm(fieldsForm){
+    let fields = document.querySelectorAll(fieldsForm);
+    let valid = true;
+
+    fields.forEach(field => {
+        if(field.id != "login_operador"){
+            if(field.value == ""){
+                msg("error", "Erro!", "Preencha todos os campos");
+                valid = false;
+
+                return false;
+            }
+        }
+    });
+
+    return valid;
+}
+
 function validateEmail(email) {
     var emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(email);

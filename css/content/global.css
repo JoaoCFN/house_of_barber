@@ -378,5 +378,5 @@
 }
 
 table.dataTable.no-footer{
-    border-bottom: 1px solid var(--white);
+    border-bottom: 1px solid var(--white) !important;
 }

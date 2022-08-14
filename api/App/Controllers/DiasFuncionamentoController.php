@@ -21,7 +21,7 @@
             return $response;
         }
 
-        public function getServico(Request $request, Response $response, array $args): Response 
+        public function getDiaFuncionamento(Request $request, Response $response, array $args): Response 
         {
             if(isset($args['id'])){
                 $id = $args['id'];
@@ -151,7 +151,7 @@
             return $response;
         }
         
-        public function updateServico(Request $request, Response $response, array $args): Response 
+        public function updateDiaFuncionamento(Request $request, Response $response, array $args): Response 
         {
             $data = $request->getParsedBody();
 
@@ -171,7 +171,6 @@
                         $diasFuncionamentoModel->setDia($data['dia']);
                         $diasFuncionamentoModel->setHorarioAbertura($data['horario_abertura']);
                         $diasFuncionamentoModel->setHorarioFechamento($data['horario_fechamento']);
-                        $diasFuncionamentoModel->setEstabelecimentoId($id);
     
                         $queryStatus = $diasFuncionamentoDAO->updateDiaFuncionamento($diasFuncionamentoModel, $id);
     
@@ -212,7 +211,7 @@
             return $response;
         }
         
-        public function deleteServico(Request $request, Response $response, array $args): Response 
+        public function deleteDiaFuncionamento(Request $request, Response $response, array $args): Response 
         {
             $data = $request->getParsedBody();
 

@@ -1,7 +1,18 @@
 const apiPath = "/house_of_barber/api";
 
-let nomeInput = "";
-let valorInput = "";
+let diaInput = "";
+let horarioAberturaInput = "";
+let horarioFechamentoInput = "";
+
+const daysOfWeek = [
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+    "Domingo"
+]
 
 const buildDataTable = () => {
     loading();
@@ -13,26 +24,26 @@ const buildDataTable = () => {
         'token': token
     };
 
-    request(`${apiPath}/servicos/estabelecimento`, headers, 'GET', '', (data) => {
+    request(`${apiPath}/dias_funcionamento/estabelecimento`, headers, 'GET', '', (data) => {
         if(data.error == "true"){
             msg("error", "Ooops!", data.message);
         }
         else{
             let dataTableData = [];
 
-            const servicos = data;
+            const diasFuncionamento = data;
 
-            if(servicos.length > 0){
-                servicos.forEach(servico => {
-                    const { id, nome, valor  } = servico;
+            if(diasFuncionamento.length > 0){
+                diasFuncionamento.forEach(diaFuncionamento => {
+                    const { id, dia, horario_abertura, horario_fechamento } = diaFuncionamento;
     
                     const editButton = `
                         <button 
                             class="btn hb-btn-secondary-default hb-w-700"
                             id="edit_button"
                             data-toggle="modal"
-                            data-target="#modal-editar-servico"
-                            onclick="loadServicesInfo('${id}')"
+                            data-target="#modal-editar-dia-funcionamento"
+                            onclick="loadOperatingDayInfo('${id}')"
                         >
                             Editar
                         </button
@@ -42,21 +53,22 @@ const buildDataTable = () => {
                         <button 
                             class="btn hb-btn-red hb-w-700"
                             id="delete_button"
-                            onclick="deleteService('${id}')"
+                            onclick="deleteOperatingDay('${id}')"
                         >
                             Deletar
                         </button
                     `;
     
                     dataTableData.push([
-                        nome,
-                        valor,
+                        daysOfWeek[dia],
+                        horario_abertura,
+                        horario_fechamento,
                         editButton,
                         deleteButton
                     ]);
                 });
 
-                $('#table-servicos-barbearia').DataTable({
+                $('#table-dias-funcionamento-barbearia').DataTable({
                     data: dataTableData,
                     pageLength: 10,
                     oLanguage: {
@@ -80,7 +92,7 @@ const buildDataTable = () => {
                 });
             }
             else{
-                $('#table-servicos-barbearia').DataTable({
+                $('#table-dias-funcionamento-barbearia').DataTable({
                     data: dataTableData,
                     pageLength: 10,
                     oLanguage: {
@@ -107,8 +119,8 @@ const buildDataTable = () => {
     });
 }
 
-const insertService = () => {
-    let dataIsValid = validateDataForm("#inserir_servico .form-control");
+const insertOperatingDay = () => {
+    let dataIsValid = validateDataForm("#inserir_dia_funcionamento .form-control");
 
     if(dataIsValid){
         loading();
@@ -121,18 +133,20 @@ const insertService = () => {
         };
     
         const { 
-            nome_input, 
-            valor_input 
-        } = document.forms.inserir_servico;
+            dia_input, 
+            horario_abertura_input, 
+            horario_fechamento_input
+        } = document.forms.inserir_dia_funcionamento;
     
         let body = {
-            nome: nome_input.value,
-            valor: valor_input.value
+            dia: dia_input.value,
+            horario_abertura: horario_abertura_input.value,
+            horario_fechamento: horario_fechamento_input.value
         };
     
-        request(`${apiPath}/servico`, headers, 'POST', body, (data) => {
+        request(`${apiPath}/dia_funcionamento`, headers, 'POST', body, (data) => {
             if(data.error == "false"){
-                msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/servicos");
+                msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/dias_funcionamento");
             }
             else{
                 msg("error", "Ooops!", data.message);
@@ -146,7 +160,7 @@ const insertService = () => {
     }
 }
 
-const loadServicesInfo = (id) => {
+const loadOperatingDayInfo = (id) => {
     loading();
 
     const token = Cookies.get('user_token');
@@ -156,21 +170,23 @@ const loadServicesInfo = (id) => {
         'token': token
     };
 
-    request(`${apiPath}/servico/${id}`, headers, 'GET', '', (data) => {
+    request(`${apiPath}/dia_funcionamento/${id}`, headers, 'GET', '', (data) => {
         if(data.error == "true"){
             msg("error", "Ooops!", data.message);
         }
         else{
             const {
                 id,
-                nome,
-                valor
+                dia,
+                horario_abertura,
+                horario_fechamento
             } = data[0];
 
             const {
-                nome_input,
-                valor_input
-            } = document.forms.editar_servico;
+                dia_input,
+                horario_abertura_input,
+                horario_fechamento_input,
+            } = document.forms.editar_dia_funcionamento;
 
             const modalBtnSalvar = document.querySelector("#modal_btn_salvar");
 
@@ -178,15 +194,16 @@ const loadServicesInfo = (id) => {
                 modalBtnSalvar.setAttribute("data-id", id);
             }
 
-            nome_input.value = nome;
-            valor_input.value = valor;
+            dia_input.value = dia;
+            horario_abertura_input.value = horario_abertura;
+            horario_fechamento_input.value = horario_fechamento;
 
             closeLoading();
         }
     });
 }
 
-const editService = (e) => {
+const editOperatingDay = (e) => {
     const btnEditar = e.target;
 
     btnEditar.classList.toggle("d-none");
@@ -197,15 +214,16 @@ const editService = (e) => {
         editButtons.classList.toggle("d-none");
     }
 
-    nomeInput = document.forms.editar_servico.nome_input.value;
-    valorInput = document.forms.editar_servico.valor_input.value;
+    diaInput = document.forms.editar_dia_funcionamento.dia_input.value;
+    horarioAberturaInput = document.forms.editar_dia_funcionamento.horario_abertura.value;
+    horarioFechamentoInput = document.forms.editar_dia_funcionamento.horario_fechamento.value;
 
-    const inputs = Array.from(document.forms.editar_servico.elements);
+    const inputs = Array.from(document.forms.editar_dia_funcionamento.elements);
 
     inputs.forEach((input) => {
         const { name } = input;
 
-        if(name == "nome_input" || name == "valor_input"){
+        if(name == "dia_input" || name == "horario_abertura_input" || name == "horario_fechamento_input"){
             input.removeAttribute("disabled");
         }
     });
@@ -224,24 +242,25 @@ const cancelEdition = (e) => {
         editButtons.classList.toggle("d-none");
     }
 
-    document.forms.editar_servico.nome_input.value = nomeInput;
-    document.forms.editar_servico.valor_input.value = valorInput;
+    document.forms.editar_dia_funcionamento.dia_input.value = diaInput;
+    document.forms.editar_dia_funcionamento.horario_abertura.value = horarioAberturaInput;
+    document.forms.editar_dia_funcionamento.horario_fechamento.value = horarioFechamentoInput;
 
-    const inputs = Array.from(document.forms.editar_servico.elements);
+    const inputs = Array.from(document.forms.editar_dia_funcionamento.elements);
 
     inputs.forEach((input) => {
         const { name } = input;
 
-        if(name == "nome_input" || name == "valor_input"){
-            input.setAttribute("disabled", "disabled");
+        if(name == "dia_input" || name == "horario_abertura_input" || name == "horario_fechamento_input"){
+            input.removeAttribute("disabled");
         }
     });
 };
 
 const saveServiceEditions = (e) => {
-    msgWithConfirm('info', 'Atenção', 'Deseja editar este serviço?', 'Sim', (event) => {
+    msgWithConfirm('info', 'Atenção', 'Deseja editar este dia de funcionamento?', 'Sim', (event) => {
         if(event.isConfirmed){
-            let dataIsValid = validateDataForm("#editar_servico .form-control");
+            let dataIsValid = validateDataForm("#editar_dia_funcionamento .form-control");
 
             if(dataIsValid){
                 loading();
@@ -261,19 +280,21 @@ const saveServiceEditions = (e) => {
                 }
     
                 const {
-                    nome_input,
-                    valor_input,
-                } = document.forms.editar_servico;
+                    dia_input,
+                    horario_abertura_input,
+                    horario_fechamento_input,
+                } = document.forms.editar_dia_funcionamento;
     
                 let body = {
-                    nome: nome_input.value,
-                    valor: valor_input.value,
+                    dia: dia_input.value,
+                    horario_abertura: horario_abertura_input.value,
+                    horario_fechamento: horario_fechamento_input.value,
                     id: id
                 }
     
-                request(`${apiPath}/servico`, headers, 'PUT', body, (data) => {
+                request(`${apiPath}/dia_funcionamento`, headers, 'PUT', body, (data) => {
                     if(data.error == "false"){
-                        msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/servicos");
+                        msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/dias_funcionamento");
                     }
                     else{
                         msg("info", "Atenção", data.message);
@@ -283,14 +304,14 @@ const saveServiceEditions = (e) => {
             else{
                 msg("info", "Atenção", "Preencha todos os campos");
 
-                return;
+                return
             }
         }
     });
 };
 
-const deleteService = (id) => {
-    msgWithConfirm('info', 'Atenção', 'Deseja deletar este serviço?', 'Deletar', (event) => {
+const deleteOperatingDay = (id) => {
+    msgWithConfirm('info', 'Atenção', 'Deseja deletar este dia de funcionamento?', 'Deletar', (event) => {
         if(event.isConfirmed){
             loading();
         
@@ -305,9 +326,9 @@ const deleteService = (id) => {
                 id: id
             };
         
-            request(`${apiPath}/servico`, headers, 'DELETE', body, (data) => {
+            request(`${apiPath}/dia_funcionamento`, headers, 'DELETE', body, (data) => {
                 if(data.error == "false"){
-                    msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/servicos");
+                    msgWithRedirect("success", "Sucesso", data.message, "/house_of_barber/barbearia/dias_funcionamento");
                 }
                 else{
                     msg("error", "Ooops!", data.message);
@@ -319,6 +340,6 @@ const deleteService = (id) => {
 
 buildDataTable();
 
-document.querySelector("#modal_btn_editar").addEventListener("click", editService);
+document.querySelector("#modal_btn_editar").addEventListener("click", editOperatingDay);
 document.querySelector("#modal_btn_cancelar").addEventListener("click", cancelEdition);
 document.querySelector("#modal_btn_salvar").addEventListener("click", saveServiceEditions);

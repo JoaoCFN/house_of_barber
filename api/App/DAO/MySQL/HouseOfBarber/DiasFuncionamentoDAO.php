@@ -88,7 +88,7 @@
         {
            $query = "UPDATE dias_funcionamento
                 SET
-                    dia = :nome,
+                    dia = :dia,
                     horario_abertura = :horario_abertura,
                     horario_fechamento = :horario_fechamento
             WHERE id = :id";

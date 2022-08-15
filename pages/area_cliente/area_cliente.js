@@ -27,6 +27,17 @@ const buildClienteArea = () =>{
                         status_funcionamento
                     } = establishment;
 
+                    let horarioAberturaFormat = "";
+                    let horarioFechamentoFormat = "";
+
+                    if(horario_abertura == "FECHADO"){
+                        horarioAberturaFormat = "Fechado"
+                    }
+                    else if(horario_abertura){
+                        horarioAberturaFormat = `${horario_abertura}H - `;
+                        horarioFechamentoFormat = `${horario_fechamento}H`;
+                    }
+
                     cardsBarbeariaWrapper.innerHTML += `
                         <div class='col-md-3 col-sm-12 mb-4'>
                             <div class='card area-cliente-card'>
@@ -46,8 +57,8 @@ const buildClienteArea = () =>{
                                         <p>
                                             <i class='fa fa-clock-o'></i>
                                             <span class='ml-1'>
-                                                ${horario_abertura ? `${horario_abertura}H -`: 'Não informado'} 
-                                                ${horario_fechamento ? `${horario_fechamento}H`: ''}
+                                                ${horarioAberturaFormat} 
+                                                ${horarioFechamentoFormat}
                                             </span>
                                         </p>    
                                         <p>
@@ -60,7 +71,7 @@ const buildClienteArea = () =>{
                                         </p>            
                                     </div>
                                     <a 
-                                        href='/house_of_barber/barbearia/${estabelecimento_id}' 
+                                        href='/house_of_barber/barbearias/${estabelecimento_id}' 
                                         class='btn hb-btn-secondary hb-w-700 hb-full-width'
                                     >
                                         Agendar

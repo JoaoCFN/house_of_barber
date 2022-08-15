@@ -1,12 +1,13 @@
 <?php
     use function config\slimConfiguration;
 
-    use App\Controllers\ClienteController;
+use App\Controllers\AgendamentoController;
+use App\Controllers\ClienteController;
     use App\Controllers\EstabelecimentoController;
     use App\Controllers\AutenticarController;
-use App\Controllers\DiasFuncionamentoController;
-use App\Controllers\EnderecoController;
-use App\Controllers\ServicoController;
+    use App\Controllers\DiasFuncionamentoController;
+    use App\Controllers\EnderecoController;
+    use App\Controllers\ServicoController;
 
     $app = new \Slim\App(slimConfiguration());
 
@@ -35,6 +36,7 @@ use App\Controllers\ServicoController;
 
         $app->get('/servicos', ServicoController::class.':getServicos');
         $app->get('/servico[/{id}]', ServicoController::class.':getServico');
+        $app->get('/servicos_estab[/{id}]', ServicoController::class.':getServicoEstab');
         $app->get('/servicos/estabelecimento', ServicoController::class.':getServicoWithEstabelecimentoId');
         $app->post('/servico', ServicoController::class.':insertServico');
         $app->put('/servico', ServicoController::class.':updateServico');
@@ -42,10 +44,19 @@ use App\Controllers\ServicoController;
 
         $app->get('/dias_funcionamento', DiasFuncionamentoController::class.':getDiasFuncionamento');
         $app->get('/dia_funcionamento[/{id}]', DiasFuncionamentoController::class.':getDiaFuncionamento');
+        $app->get('/dias_funcionamento_estab[/{id}]', DiasFuncionamentoController::class.':getDiaFuncionamentoEstab');
         $app->get('/dias_funcionamento/estabelecimento', DiasFuncionamentoController::class.':getDiaFuncionamentoWithEstabelecimentoId');
         $app->post('/dia_funcionamento', DiasFuncionamentoController::class.':insertDiaFuncionamento');
         $app->put('/dia_funcionamento', DiasFuncionamentoController::class.':updateDiaFuncionamento');
         $app->delete('/dia_funcionamento', DiasFuncionamentoController::class.':deleteDiaFuncionamento');
+
+        $app->get('/agendamentos', AgendamentoController::class.':getAgendamentos');
+        $app->get('/agendamento[/{id}]', AgendamentoController::class.':getAgendamento');
+        $app->get('/agendamentos/estabelecimento', AgendamentoController::class.':getAgendamentoWithEstabelecimentoId');
+        $app->get('/agendamentos_servico/[/{id}]', AgendamentoController::class.':getAgendamentoWithServicos');
+        $app->post('/agendamento', AgendamentoController::class.':insertAgendamento');
+        $app->put('/agendamento', AgendamentoController::class.':updateAgendamento');
+        $app->delete('/agendamento', AgendamentoController::class.':deleteAgendamento');
     })->add($verifyAuth);
 
     $app->run();

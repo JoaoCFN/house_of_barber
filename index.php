@@ -34,6 +34,10 @@
         $app->get('/cliente/perfil', function(){
             require_once "pages/perfil_cliente/perfil_cliente.php";
         });
+
+        $app->get('/barbearias[/{id}]', function(){
+            require_once "pages/interna_barbearia/interna_barbearia.php";
+        });
     })->add($verifyAuthCliente);
 
     $app->group('', function() use ($app){

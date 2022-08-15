@@ -49,6 +49,34 @@
             return $response;
         }
 
+        public function getDiaFuncionamentoEstab(Request $request, Response $response, array $args): Response 
+        {
+            if(isset($args['id'])){
+                $id = $args['id'];
+    
+                if(is_numeric($id)){
+                    $diasFuncionamentoDAO = new DiasFuncionamentoDAO();
+                    $diaFuncionamento = $diasFuncionamentoDAO->findByEstabelecimentoId($id);
+        
+                    $response = $response->withJson($diaFuncionamento);
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Informe um id númerico",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o id",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
         public function getDiaFuncionamentoWithEstabelecimentoId(Request $request, Response $response, array $args): Response 
         {
             $headers = $request->getHeaders();

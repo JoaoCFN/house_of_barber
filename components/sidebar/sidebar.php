@@ -25,16 +25,16 @@
     <ul class="nav_list">
         <?php
             createSidebarItem('Dashboard', 'Dashboard', "$pathRoutes", 'bx bx-grid-alt', 'dashboard');
-            createSidebarItem('Agendamentos', 'Agendamentos', "$pathRoutes/agendamentos", 'bx bx-calendar', 'agendamentos');
+            createSidebarItem('Agendamentos', 'Agendamentos', "#", 'bx bx-calendar', 'agendamentos');
             createSidebarItem('Horários', 'Horários', "$pathRoutes/dias_funcionamento", 'bx bx-time-five', 'horarios');
             createSidebarItem('Serviços', 'Serviços', "$pathRoutes/servicos", 'bx bx-list-ul', 'servicos');
             // createSidebarItem('Avaliações', 'Avaliações', '#', 'bx bx-star', 'avaliacoes');
-            createSidebarItem('Estabelecimento', 'Estabelecimento', "$pathRoutes/estabelecimento", 'bx bx-user', 'estabelecimento');
+            createSidebarItem('Estabelecimento', 'Estabelecimento', "#", 'bx bx-user', 'estabelecimento');
         ?>
 
         <div class="profile_content">
             <li class="profile">
-                <a href="#">
+                <a href="javascript:void(0)" onclick="logout('ESTABELECIMENTO')">
                     <i class='bx bx-log-out' id="log_out"></i>
                 </a>
                 <span class="tooltip">Sair</span>

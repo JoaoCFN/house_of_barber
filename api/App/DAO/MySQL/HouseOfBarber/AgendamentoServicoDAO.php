@@ -14,6 +14,8 @@
             $query = "SELECT 
                     * 
                 FROM agendamento_servico
+                INNER JOIN servico
+                ON agendamento_servico.servico_id = servico.id
                 WHERE 
                     agendamento_id = :id
             ";

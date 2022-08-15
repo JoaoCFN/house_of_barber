@@ -76,7 +76,7 @@
                                 <!--form panels-->
                                 <div class="row">
                                     <div class="col-12 col-lg-8 m-auto">
-                                        <form class="multisteps-form__form" method="post">
+                                        <form class="multisteps-form__form" id="agendamento"  method="post">
                                             <!--Dia-->
                                             <div class="multisteps-form__panel shadow p-4 rounded js-active">
                                                 <h3 class="multisteps-form__title hb-txt-white hb-w-900">
@@ -88,7 +88,7 @@
                                                         class="datepicker hb-form-input hb-full-width pl-3"
                                                         placeholder="Clique para selecionar o dia"
                                                         id="dia-agendamento"
-                                                        name="dia-agendamento"
+                                                        name="dia_input"
                                                         data-target-title="btn-dia"
                                                         onChange="handleButton(this);"
                                                     />
@@ -118,7 +118,7 @@
                                                         class="timepicker hb-form-input hb-full-width pl-3"
                                                         placeholder="Clique para selecionar o horário"
                                                         id="horario-agendamento"
-                                                        name="horario-agendamento"
+                                                        name="horario_input"
                                                         data-target-title="btn-horario"
                                                         onChange="handleButton(this);"
                                                     />
@@ -166,32 +166,30 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!--Confirmar Serviço-->
+                                            <div class="multisteps-form__panel shadow p-4 rounded" data-animation="scaleIn">
+                                                <h3 class="multisteps-form__title hb-txt-white hb-w-900">
+                                                    Confirmar serviço
+                                                </h3>
+                                                <div class="multisteps-form__content">
+                                                    <div class="mt-3 mb-3" >
+                                                        <h5 class="multisteps-form__title hb-txt-white hb-w-500" id="nome-cliente"></h5>
+                                                        <div id="confirmar-servico-content"></div>
+                                                    </div>
+                                                    <div class="button-row d-flex mt-4">
+                                                        <button class="btn hb-btn-secondary-default js-btn-prev hb-w-700" type="button" title="Prev">
+                                                            Anterior
+                                                        </button>
+                                                        <button class="btn hb-btn-green ml-auto hb-w-700" type="button" onclick="sendScheduling()">
+                                                            Agendar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
-                                    </div>                                                 
-                                </div>
-                                <!--Confirmar Serviço-->
-                                <div class="multisteps-form__panel shadow p-4 rounded" data-animation="scaleIn">
-                                    <h3 class="multisteps-form__title hb-txt-white hb-w-900">
-                                        Confirmar serviço
-                                    </h3>
-                                    <div class="multisteps-form__content">
-                                        <div class="mt-3 mb-3" >
-                                            <h5 class="multisteps-form__title hb-txt-white hb-w-500">
-                                                Nome: {$_SESSION["nome"]}
-                                            </h5>
-                                            <div id="confirmar-servico-content"></div>
-                                        </div>
-                                        <div class="button-row d-flex mt-4">
-                                            <button class="btn hb-btn-secondary-default js-btn-prev hb-w-700" type="button" title="Prev">
-                                                Anterior
-                                            </button>
-                                            <button class="btn hb-btn-green ml-auto hb-w-700" type="submit" title="Send">
-                                                Agendar
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
-                            </form>
                             </div>
                         </div>                                                            
                     </div>

@@ -24,8 +24,10 @@
         public function findById(string $id): array
         {
             $query = "SELECT 
-                    *
+                    * 
                 FROM agendamento
+                LEFT JOIN agendamento_servico
+                ON agendamento_servico.agendamento_id = agendamento.id
                 WHERE 
                     id = :id
             ";
@@ -59,30 +61,32 @@
             return $agendamento;
         }
 
-        public function findByIdWithServicos(string $id): array
+        public function findByClienteId(string $clienteId): array
         {
             $query = "SELECT 
-                    * 
+                    *,
+                    DATE_FORMAT(agendamento.data_agendamento, '%d/%m/%Y') AS data_agendamento_format,
+                    TIME_FORMAT(agendamento.horario_agendamento, '%H:%i') AS horario_agendamento_format
                 FROM agendamento
-                LEFT JOIN agendamento_servico
-                ON agendamento_servico.agendamento_id = agendamento.id
-                LEFT JOIN servico
-                ON agendamento_servico.servico_id = servico.id
+                INNER JOIN estabelecimento
+                ON agendamento.estabelecimento_id = estabelecimento.id
+                INNER JOIN endereco
+                ON estabelecimento.id = endereco.estabelecimento_id
                 WHERE 
-                    agendamento.id = :id
+                    cliente_id = :cliente_id
             ";
 
             $statement = $this->pdo->prepare($query);
             $statement->execute([
-                "id" => $id
+                "cliente_id" => $clienteId
             ]);
 
-            $servico = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $agendamento = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $servico;
+            return $agendamento;
         }
 
-        public function insertAgendamento(AgendamentoModel $agendamento): bool
+        public function insertAgendamento(AgendamentoModel $agendamento): array
         {
             $query = "INSERT INTO agendamento(
                 cliente_id,
@@ -110,7 +114,10 @@
                 "status" => $agendamento->getStatus()
             ]);
 
-            return $result;
+            return [
+                $result,
+                $result ? $this->pdo->lastInsertId() : 0
+            ];
         }
 
         public function updateAgendamento(AgendamentoModel $agendamento, int $id): bool

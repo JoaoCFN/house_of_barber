@@ -79,7 +79,6 @@ const setActivePanel = activePanelNum => {
 //set form height equal to current panel height
 const formHeight = (activePanel) => {
     const activePanelHeight = activePanel.offsetHeight;
-    console.log(activePanelHeight);
 
     DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
 };

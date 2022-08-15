@@ -70,7 +70,6 @@
                     $cliente = $clienteDAO->findById($idUsuario);
 
                     if($cliente && count($cliente) > 0){
-                        unset($cliente[0]['id']);
                         unset($cliente[0]['senha']);
 
                         $response = $response->withJson($cliente);

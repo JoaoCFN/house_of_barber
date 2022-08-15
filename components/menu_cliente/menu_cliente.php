@@ -31,12 +31,13 @@
                         class="nav-link" 
                         data-toggle="modal"
                         data-target="#modal-agendamentos"
+                        id="btn-meus-agendamentos"
                         href="#"
                     >
                         MEUS AGENDAMENTOS
                     </a>
                 </li>
-                <li class="nav-item align-self-center">                   
+                <!-- <li class="nav-item align-self-center">                   
                     <a 
                         class="nav-link" 
                         data-toggle="modal"
@@ -45,7 +46,7 @@
                     >
                         MEUS FAVORITOS
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item align-self-center">                   
                     <a 
                         class="nav-link" 
@@ -65,3 +66,27 @@
         </div>
     </div>
 </nav>
+
+<!-- Modal Agendamentos -->
+<div class="modal fade" id="modal-agendamentos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title hb-txt-secondary hb-w-700">
+                    Agendamentos
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true" class="hb-txt-white">
+                        &times;
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body" id="agendamentos-content"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary hb-w-700" data-dismiss="modal">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

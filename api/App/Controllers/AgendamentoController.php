@@ -6,6 +6,8 @@
 
     use App\DAO\MySQL\HouseOfBarber\AgendamentoDAO;
     use App\Models\MySQL\HouseOfBarber\AgendamentoModel;
+    use App\DAO\MySQL\HouseOfBarber\AgendamentoServicoDAO;
+    use App\Models\MySQL\HouseOfBarber\AgendamentoServicoModel;
     use App\Assets\BaseLib\App\Utilities;
     use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
     use App\Models\MySQL\HouseOfBarber\AutenticarModel;
@@ -29,6 +31,34 @@
                 if(is_numeric($id)){
                     $agendamentoDAO = new AgendamentoDAO();
                     $agendamento = $agendamentoDAO->findById($id);
+        
+                    $response = $response->withJson($agendamento);
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Informe um id númerico",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o id",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function getAgendamentoWithClienteId(Request $request, Response $response, array $args): Response 
+        {
+            if(isset($args['id'])){
+                $id = $args['id'];
+    
+                if(is_numeric($id)){
+                    $agendamentoDAO = new AgendamentoDAO();
+                    $agendamento = $agendamentoDAO->findByClienteId($id);
         
                     $response = $response->withJson($agendamento);
                 }
@@ -83,8 +113,8 @@
                 $id = $args['id'];
     
                 if(is_numeric($id)){
-                    $agendamentoDAO = new AgendamentoDAO();
-                    $agendamento = $agendamentoDAO->findByIdWithServicos($id);
+                    $agendamentoServicoDAO = new AgendamentoServicoDAO();
+                    $agendamento = $agendamentoServicoDAO->findByAgendamentoId($id);
         
                     $response = $response->withJson($agendamento);
                 }
@@ -139,11 +169,14 @@
                         $agendamentoModel->setValor($data['valor']);
                         $agendamentoModel->setStatus($data['status']);
             
-                        $queryStatus = $agendamentoDAO->insertAgendamento($agendamentoModel);
+                        $queryData = $agendamentoDAO->insertAgendamento($agendamentoModel);
+                        $queryStatus = $queryData[0];
+                        $insertedId = $queryData[1];
             
                         if($queryStatus){
                             $response = $response->withJson([
                                 "message" => "Agendamento inserido com sucesso",
+                                "scheduling_id" => $insertedId,
                                 "error" => "false"
                             ]);
                         }
@@ -171,6 +204,47 @@
             else{
                 $response = $response->withJson([
                     "message" => "Token inválido",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function insertAgendamentoServico(Request $request, Response $response, array $args): Response 
+        {
+            $data = $request->getParsedBody();
+
+            $fieldsNecessary = ['agendamento_id', 'servico_id'];
+            $data = Utilities::treatRequestBody($data, 'PDO');
+    
+            $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+            if($correctFieldsInformed){
+                $agendamentoServicoModel = new AgendamentoServicoModel();
+                $agendamentoServicoDAO = new AgendamentoServicoDAO();
+
+                $agendamentoServicoModel->setAgendamentoId($data['agendamento_id']);
+                $agendamentoServicoModel->setServicoId($data['servico_id']);
+                
+                $queryStatus = $agendamentoServicoDAO->insertAgendamentoServico($agendamentoServicoModel);
+    
+                if($queryStatus){
+                    $response = $response->withJson([
+                        "message" => "Serviço inserido com sucesso",
+                        "error" => "false"
+                    ]);
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Erro ao inserir o serviço",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe todos os campos necessários",
                     "error" => "true"
                 ]);
             }

@@ -3,7 +3,7 @@
         <div class="row" id="cards-barbearias"></div>
     </div>
 
-    <button class="btn-pesquisa btn-position-fixed" data-toggle="modal" data-target="#modal-pesquisa">
+    <!-- <button class="btn-pesquisa btn-position-fixed" data-toggle="modal" data-target="#modal-pesquisa">
         <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
+    </button> -->
 </section>

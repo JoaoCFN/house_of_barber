@@ -1,0 +1,30 @@
+#inserir_servico .icone_dentro_input,
+#editar_servico .icone_dentro_input {
+    position: relative;
+}
+
+#inserir_servico .icone_dentro_input input,
+#editar_servico .icone_dentro_input input{
+    padding-left: 40px;
+    height: 3rem;
+    color: var(--white);
+}
+
+#inserir_servico .icone_dentro_input i, 
+#inserir_servico .icone_dentro_input ion-icon,
+#editar_servico .icone_dentro_input i,
+#editar_servico .icone_dentro_input ion-icon{
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.95rem;
+    padding: 0px 10px;
+    color: var(--white);
+}
+
+#inserir_servico .card .area_alt,
+#inserir_servico .card .area_alt i,
+#editar_servico .card .area_alt,
+#editar_servico .card .area_alt i{
+    text-align: center;
+}

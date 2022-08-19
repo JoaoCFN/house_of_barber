@@ -45,6 +45,10 @@
             require_once "pages/barbearia/barbearia.php";
         });
 
+        $app->get('/barbearia/agendamentos', function(){
+            require_once "pages/agendamentos_barbearia/agendamentos_barbearia.php";
+        });
+
         $app->get('/barbearia/servicos', function(){
             require_once "pages/servicos_barbearia/servicos_barbearia.php";
         });

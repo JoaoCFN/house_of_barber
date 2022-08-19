@@ -1,0 +1,20 @@
+.status-box{
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+    padding: 0.2rem 0.6rem;  
+}
+
+.status-box[data-status="pending"]{
+    background: var(--secondary);
+}
+
+.status-box[data-status="finished"]{
+    background: var(--green);
+    color: var(--white);
+}
+
+.status-box[data-status="canceled"]{
+    background: var(--red);
+    color: var(--white);
+}

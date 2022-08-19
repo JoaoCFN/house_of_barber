@@ -7,6 +7,8 @@
     use App\DAO\MySQL\HouseOfBarber\EstabelecimentoDAO;
     use App\Models\MySQL\HouseOfBarber\EstabelecimentoModel;
     use App\Assets\BaseLib\App\Utilities;
+    use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
+    use App\Models\MySQL\HouseOfBarber\AutenticarModel;
 
     final class EstabelecimentoController{
         public function getEstabelecimentos(Request $request, Response $response, array $args): Response 
@@ -40,6 +42,55 @@
             else{
                 $response = $response->withJson([
                     "message" => "Informe o id",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function getEstabelecimentoWithToken(Request $request, Response $response, array $args): Response 
+        {   
+            $headers = $request->getHeaders();
+
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
+
+                $autenticarModel->setToken($token);
+
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+                if($tokenData && count($tokenData) > 0){
+                    $idUsuario = $tokenData[0]["id_usuario"];
+
+                    $estabelecimentoDAO = new EstabelecimentoDAO();
+                    $estabelecimento = $estabelecimentoDAO->findById($idUsuario);
+
+                    if($estabelecimento && count($estabelecimento) > 0){
+                        unset($estabelecimento[0]['senha']);
+
+                        $response = $response->withJson($estabelecimento);
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Usuário não encontrado",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Token inválido",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }

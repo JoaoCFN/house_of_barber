@@ -51,8 +51,21 @@ const loadAgendamentos = () => {
                                     rua,
                                     numero,
                                     bairro,
-                                    cidade
+                                    cidade,
+                                    status_agendamento
                                 } = scheduling;
+
+                                let statusAgendamentoClass = "";
+
+                                if(status_agendamento == "PENDENTE"){
+                                    statusAgendamentoClass = "pending";
+                                }
+                                else if(status_agendamento == "FINALIZADO"){
+                                    statusAgendamentoClass = "finished";
+                                }
+                                else if(status_agendamento.includes("CANCELADO")){
+                                    statusAgendamentoClass = "canceled";
+                                }
 
                                 request(`${apiPath}/agendamentos_servico/${agendamento_id}`, headers, 'GET', '', (data) => {
                                     if(data.error == "true"){
@@ -77,10 +90,16 @@ const loadAgendamentos = () => {
                                                 <div class="row">
                                                     <div class="col-sm-12 mt-1 mb-1">
                                                         <div class="card shadow-sm hb-bg-black">
-                                                            <div class="card-body" >
+                                                            <div class="card-body">
                                                                 <h5 class="hb-txt-secondary hb-w-700 mb-2">
                                                                     ${nome}
                                                                 </h5>
+                                                                <div 
+                                                                    class="hb-w-700 status-box"
+                                                                    data-status="${statusAgendamentoClass}"
+                                                                >
+                                                                    ${status_agendamento}
+                                                                </div>
                                                                 <h6 class="hb-txt-white hb-w-500">
                                                                     <i class="fa fa-calendar"></i>
                                                                     <span class="ml-1">
@@ -129,8 +148,6 @@ const loadAgendamentos = () => {
                                         }
                                     }
                                 });
-
-                                
                             });
 
                             closeLoading();

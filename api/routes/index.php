@@ -26,6 +26,7 @@ use App\Controllers\ClienteController;
     
         $app->get('/estabelecimentos', EstabelecimentoController::class.':getEstabelecimentos');
         $app->get('/estabelecimento[/{id}]', EstabelecimentoController::class.':getEstabelecimento');
+        $app->get('/estabelecimentos/token', EstabelecimentoController::class.':getEstabelecimentoWithToken');
         $app->put('/estabelecimento', EstabelecimentoController::class.':updateEstabelecimento');
         $app->delete('/estabelecimento', EstabelecimentoController::class.':deleteEstabelecimento');
 

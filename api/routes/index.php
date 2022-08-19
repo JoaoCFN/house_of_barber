@@ -1,8 +1,8 @@
 <?php
     use function config\slimConfiguration;
 
-use App\Controllers\AgendamentoController;
-use App\Controllers\ClienteController;
+    use App\Controllers\AgendamentoController;
+    use App\Controllers\ClienteController;
     use App\Controllers\EstabelecimentoController;
     use App\Controllers\AutenticarController;
     use App\Controllers\DiasFuncionamentoController;
@@ -59,6 +59,7 @@ use App\Controllers\ClienteController;
         $app->post('/agendamento', AgendamentoController::class.':insertAgendamento');
         $app->post('/agendamento/servico', AgendamentoController::class.':insertAgendamentoServico');
         $app->put('/agendamento', AgendamentoController::class.':updateAgendamento');
+        $app->put('/agendamento/status', AgendamentoController::class.':updateStatusAgendamento');
         $app->delete('/agendamento', AgendamentoController::class.':deleteAgendamento');
     })->add($verifyAuth);
 

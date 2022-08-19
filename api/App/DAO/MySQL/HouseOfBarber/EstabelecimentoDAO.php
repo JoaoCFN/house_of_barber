@@ -200,6 +200,22 @@
             return $result;
         }
 
+        public function updateStatusEstabelecimento(EstabelecimentoModel $estabelecimento, int $id): bool
+        {
+           $query = "UPDATE estabelecimento
+                SET
+                    status = :status
+            WHERE id = :id";
+
+            $statement = $this->pdo->prepare($query);
+            $result = $statement->execute([
+                "status" => $estabelecimento->getStatus(),
+                "id" => $id
+            ]);
+
+            return $result;
+        }
+
         public function deleteEstabelecimento(int $id): bool
         {
             $query = "DELETE FROM estabelecimento

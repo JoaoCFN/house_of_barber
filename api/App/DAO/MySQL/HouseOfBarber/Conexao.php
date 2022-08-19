@@ -8,11 +8,12 @@
 
         public function __construct()
         {
-            $host = getenv("HOUSE_OF_BARBER_HOST");
-            $dbName = getenv("HOUSE_OF_BARBER_DBNAME");
-            $username = getenv("HOUSE_OF_BARBER_USER");
-            $password = getenv("HOUSE_OF_BARBER_PASSWORD");
-            $port = getenv("HOUSE_OF_BARBER_PORT");
+            // print_r($_ENV);
+            $host = 'localhost';
+            $dbName = 'house_of_barber';
+            $username = 'root';
+            $password = '';
+            $port = 3306;
 
             $dsn = "mysql:host={$host};dbname={$dbName};port={$port}";
 

@@ -82,7 +82,7 @@ const loadAgendamentos = () => {
                                                     servicosAgendamento += `${nome}`;
                                                 }
                                                 else{
-                                                    servicosAgendamento += `${nome} |`;
+                                                    servicosAgendamento += ` | ${nome}`;
                                                 }
                                             });
 

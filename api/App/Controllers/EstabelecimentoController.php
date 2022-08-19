@@ -269,6 +269,64 @@
 
             return $response;
         }
+
+        public function updateStatusEstabelecimento(Request $request, Response $response, array $args): Response 
+        {
+            $data = $request->getParsedBody();
+
+            if($data && count($data) > 0){
+                $fieldsNecessary = ['status', 'id'];
+                $data = Utilities::treatRequestBody($data, 'PDO');
+
+                $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+                if($correctFieldsInformed){
+                    $id = $data['id'];
+
+                    if(is_numeric($id)){
+                        $estabelecimentoModel = new EstabelecimentoModel();
+                        $estabelecimentoDAO = new EstabelecimentoDAO();
+                        
+                        $estabelecimentoModel->setStatus($data['status']);
+            
+                        $queryStatus = $estabelecimentoDAO->updateStatusEstabelecimento($estabelecimentoModel, $id);
+    
+                        if($queryStatus){
+                            $response = $response->withJson([
+                                "message" => "Estabelecimento atualizado com sucesso",
+                                "error" => "false"
+                            ]);
+                        }
+                        else{
+                            $response = $response->withJson([
+                                "message" => "Erro ao atualizar o estabelecimento",
+                                "error" => "true"
+                            ]);
+                        }
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Informe um id númerico",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Informe todos os campos necessários para a atualização",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o campos a serem atualizados",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
         
         public function deleteEstabelecimento(Request $request, Response $response, array $args): Response 
         {

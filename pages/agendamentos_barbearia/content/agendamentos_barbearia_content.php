@@ -3,7 +3,7 @@
         <div class="hb-flex-between">
             <div>
                 <h4 class="hb-txt-secondary hb-w-700">
-                    <i class="bx bx-list-ul"></i>
+                    <i class="bx bx-calendar"></i>
                     <span>Agendamentos</span>
                 </h4>
                 <p class="hb-txt-white hb-w-400">

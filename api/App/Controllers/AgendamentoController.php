@@ -275,10 +275,66 @@
                         $agendamentoModel->setHorarioAgendamento($data['horario_agendamento']);
                         $agendamentoModel->setValor($data['valor']);
                         $agendamentoModel->setStatus($data['status']);
-            
-                        $queryStatus = $agendamentoDAO->insertAgendamento($agendamentoModel);
     
                         $queryStatus = $agendamentoDAO->updateAgendamento($agendamentoModel, $id);
+    
+                        if($queryStatus){
+                            $response = $response->withJson([
+                                "message" => "Agendamento atualizado com sucesso",
+                                "error" => "false"
+                            ]);
+                        }
+                        else{
+                            $response = $response->withJson([
+                                "message" => "Erro ao atualizar o agendamento",
+                                "error" => "true"
+                            ]);
+                        }
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Informe um id númerico",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Informe todos os campos necessários para a atualização",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o campos a serem atualizados",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function updateStatusAgendamento(Request $request, Response $response, array $args): Response 
+        {
+            $data = $request->getParsedBody();
+
+            if($data && count($data) > 0){
+                $fieldsNecessary = ['status', 'id'];
+                $data = Utilities::treatRequestBody($data, 'PDO');
+
+                $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+                if($correctFieldsInformed){
+                    $id = $data['id'];
+
+                    if(is_numeric($id)){
+                        $agendamentoModel = new AgendamentoModel();
+                        $agendamentoDAO = new AgendamentoDAO();
+                    
+                        $agendamentoModel->setStatus($data['status']);
+    
+                        $queryStatus = $agendamentoDAO->updateStatusAgendamento($agendamentoModel, $id);
     
                         if($queryStatus){
                             $response = $response->withJson([

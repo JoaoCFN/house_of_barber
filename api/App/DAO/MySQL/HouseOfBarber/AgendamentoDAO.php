@@ -148,6 +148,22 @@
             return $result;
         }
 
+        public function updateStatusAgendamento(AgendamentoModel $agendamento, int $id): bool
+        {
+           $query = "UPDATE agendamento
+                SET
+                    status = :status
+            WHERE id = :id";
+
+            $statement = $this->pdo->prepare($query);
+            $result = $statement->execute([
+                "status" => $agendamento->getStatus(),
+                "id" => $id
+            ]);
+
+            return $result;
+        }
+
         public function deleteAgendamento(int $id): bool
         {
             $query = "DELETE FROM agendamento

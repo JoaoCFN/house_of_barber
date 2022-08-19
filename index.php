@@ -2,7 +2,9 @@
     require 'api/vendor/autoload.php';
     require 'config/verifyAuth.php';
     require 'config/functions.php';
-    require 'env.php';
+    
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
 
     $app = new \Slim\App;
 

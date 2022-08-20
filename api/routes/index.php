@@ -56,6 +56,8 @@
         $app->get('/agendamentos/estabelecimento', AgendamentoController::class.':getAgendamentoWithEstabelecimentoId');
         $app->get('/agendamentos_servico[/{id}]', AgendamentoController::class.':getAgendamentoWithServicos');
         $app->get('/agendamentos_cliente[/{id}]', AgendamentoController::class.':getAgendamentoWithClienteId');
+        $app->get('/agendamentos/dashboard', AgendamentoController::class.':getAgendamentoDataCards');
+        $app->get('/agendamentos/dashboard/grafico', AgendamentoController::class.':getAgendamentoDataChart');
         $app->post('/agendamento', AgendamentoController::class.':insertAgendamento');
         $app->post('/agendamento/servico', AgendamentoController::class.':insertAgendamentoServico');
         $app->put('/agendamento', AgendamentoController::class.':updateAgendamento');

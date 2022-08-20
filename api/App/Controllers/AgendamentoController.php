@@ -134,6 +134,71 @@
 
             return $response;
         }
+
+        public function getAgendamentoDataCards(Request $request, Response $response, array $args): Response
+        {
+            $headers = $request->getHeaders();
+            $data = $request->getParsedBody();
+
+            $token = $headers['HTTP_TOKEN'][0];
+                
+            $autenticarDAO = new AutenticarDAO();
+            $autenticarModel = new AutenticarModel();
+
+            $autenticarModel->setToken($token);
+
+            $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+            if($tokenData && count($tokenData) > 0){
+                $arrayData = [];
+                $id = $tokenData[0]["id_usuario"];
+
+                $agendamentoDAO = new AgendamentoDAO();
+
+                $data = $agendamentoDAO->getTotaAgendamentos($id);
+                $arrayData[] = $data[0];
+
+                $data = $agendamentoDAO->getTotaAgendamentosWithStatus($id, 'PENDENTE', 'pendentes');
+                $arrayData[] = $data[0];
+
+                $data = $agendamentoDAO->getTotaAgendamentosWithStatus($id, 'FINALIZADO', 'finalizados');
+                $arrayData[] = $data[0];
+
+                // Implemenar fluxo de média de avaliações
+                $arrayData[] = ["media_avaliacoes" => 0];
+
+                $response = $response->withJson($arrayData);
+            }
+
+            return $response;    
+        }
+
+        public function getAgendamentoDataChart(Request $request, Response $response, array $args): Response
+        {
+            $headers = $request->getHeaders();
+            $data = $request->getParsedBody();
+
+            $token = $headers['HTTP_TOKEN'][0];
+                
+            $autenticarDAO = new AutenticarDAO();
+            $autenticarModel = new AutenticarModel();
+
+            $autenticarModel->setToken($token);
+
+            $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+            if($tokenData && count($tokenData) > 0){
+                $id = $tokenData[0]["id_usuario"];
+
+                $agendamentoDAO = new AgendamentoDAO();
+
+                $responseData = $agendamentoDAO->getAgendamentosDataChart($id);
+
+                $response = $response->withJson($responseData);
+            }
+
+            return $response;    
+        }
         
         public function insertAgendamento(Request $request, Response $response, array $args): Response 
         {

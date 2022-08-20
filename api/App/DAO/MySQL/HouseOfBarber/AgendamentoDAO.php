@@ -88,6 +88,72 @@
             return $agendamento;
         }
 
+        public function getTotaAgendamentos(string $estabelecimentoId): array
+        {
+            $query = "SELECT 
+                    COUNT(*) AS total_agendamentos
+                FROM agendamento
+                WHERE 
+                    estabelecimento_id = :estabelecimento_id
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "estabelecimento_id" => $estabelecimentoId
+            ]);
+
+            $totalAgendamentos = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $totalAgendamentos;
+        }
+
+        public function getTotaAgendamentosWithStatus(
+            string $estabelecimentoId, 
+            string $status,
+            string $labelReturn
+        ): array
+        {
+            $query = "SELECT 
+                    COUNT(*) AS total_agendamentos_$labelReturn
+                FROM agendamento
+                WHERE 
+                    estabelecimento_id = :estabelecimento_id
+                    AND status = :status
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "estabelecimento_id" => $estabelecimentoId,
+                "status" => $status
+            ]);
+
+            $totalAgendamentos = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $totalAgendamentos;
+        }
+
+        public function getAgendamentosDataChart(string $estabelecimentoId): array 
+        {
+            $query = "SELECT 
+                    DATE_FORMAT(data_criacao, '%d/%m') AS data,
+                    COUNT(*) AS total_agendamentos
+                FROM agendamento
+                WHERE 
+                    MONTH(data_criacao) = MONTH(NOW())
+                    AND estabelecimento_id = :estabelecimento_id
+                GROUP BY DATE(data_criacao)
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "estabelecimento_id" => $estabelecimentoId
+            ]);
+            
+            $data = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $data;
+        }
+
         public function insertAgendamento(AgendamentoModel $agendamento): array
         {
             $query = "INSERT INTO agendamento(

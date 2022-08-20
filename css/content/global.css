@@ -343,6 +343,25 @@
     color: var(--white);
 }
 
+.hb-box-icon{
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 30px;
+    margin-top: -4.5rem;
+
+    width: 4.2rem;
+    height: 4.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hb-box-icon[data-color="yellow"]{
+    background: var(--secondary);
+    color: var(--black);
+}
+
 /* Sweet alert */
 .swal2-modal{
     background-color: var(--primary) !important;

@@ -1,5 +1,3 @@
-const apiPath = "/house_of_barber/api";
-
 const menuCliente = () => {
     const buttonLogout = document.querySelector("#btn_logout");
 

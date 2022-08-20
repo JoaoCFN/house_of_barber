@@ -21,21 +21,21 @@
 
     function createCardDeck(){
         ?>
-            <div class="row mt-4 mb-4">
+            <div class="row hb-4 mb-4">
                 <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
+                    <div class="hb-card">
+                        <div class="card-body hb-txt-white">
+                            <div class="hb-flex-between">
                                 <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="blue">
+                                    <div class="hb-box-icon" data-color="yellow">
                                         <i class='bx bx-message-check'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Total Casos
+                                    <h5 class="hb-w-700 hb-card-title">
+                                        Total agendamentos
                                     </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_abertos">
+                                    <h5 class="mb-0 text-right" id="total_agendamentos">
                                         0
                                     </h5>
                                 </div>
@@ -43,13 +43,13 @@
 
                             <hr>
 
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
+                            <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
                                     <i class='bx bx-message-check'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
-                                        Ocorrências abertas
+                                        Total agendamentos
                                     </h6>
                                 </div>
                             </div>
@@ -58,19 +58,19 @@
                 </div>
                 
                 <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
+                    <div class="hb-card">
+                        <div class="card-body hb-txt-white">
+                            <div class="hb-flex-between">
                                 <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="green">
+                                    <div class="hb-box-icon" data-color="yellow">
                                         <i class='bx bx-time'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Casos Hoje
+                                    <h5 class="hb-w-700 hb-card-title">
+                                        Agendamentos em aberto
                                     </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_abertos_hoje">
+                                    <h5 class="mb-0 text-right" id="agendamentos_pendentes">
                                         0
                                     </h5>
                                 </div>
@@ -78,13 +78,13 @@
 
                             <hr>
 
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
+                            <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
                                     <i class='bx bx-time'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
-                                        Casos abertos hoje
+                                        Agendamentos em aberto
                                     </h6>
                                 </div>
                             </div>
@@ -93,19 +93,19 @@
                 </div>
 
                 <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
+                    <div class="hb-card">
+                        <div class="card-body hb-txt-white">
+                            <div class="hb-flex-between">
                                 <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="red">
+                                    <div class="hb-box-icon" data-color="yellow">
                                         <i class='bx bx-message-rounded-error'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Cont. Líder
+                                    <h5 class="hb-w-700 hb-card-title">
+                                        Agendamentos finalizados
                                     </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_contestados_lider">
+                                    <h5 class="mb-0 text-right" id="agendamentos_finalizados">
                                         0
                                     </h5>
                                 </div>
@@ -113,13 +113,13 @@
 
                             <hr>
 
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
+                            <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
                                     <i class='bx bx-message-rounded-error'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
-                                        Casos contestados pelo líder
+                                        Agendamentos finalizados
                                     </h6>
                                 </div>
                             </div>
@@ -128,19 +128,19 @@
                 </div>
 
                 <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
+                    <div class="hb-card">
+                        <div class="card-body hb-txt-white">
+                            <div class="hb-flex-between">
                                 <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="yellow">
+                                    <div class="hb-box-icon" data-color="yellow">
                                         <i class='bx bx-clipboard'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Tratados Quali
+                                    <h5 class="hb-w-700 hb-card-title">
+                                        Média das avaliações
                                     </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_tratados_quali">
+                                    <h5 class="mb-0 text-right" id="media_avaliacoes">
                                         0
                                     </h5>
                                 </div>
@@ -148,153 +148,13 @@
 
                             <hr>
 
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
+                            <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
                                     <i class='bx bx-clipboard'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
-                                        Tratados pela qualidade
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
-                                <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="blue">
-                                        <i class='bx bx-lock'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Fechado Líder
-                                    </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="fechado_lider">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-lock'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Casos fechados pelos líderes
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
-                                <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="green">
-                                        <i class='bx bx-loader'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Em tratativa
-                                    </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="casos_tratando">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-loader'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Casos em tratativa
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
-                                <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="red">
-                                        <i class='bx bx-message-rounded-error'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Cont. Operação
-                                    </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_contestados_operacao">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-message-rounded-error'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Contestados pela operação
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="mt-card">
-                        <div class="card-body">
-                            <div class="mt-flex-between">
-                                <div class="align-self-center">
-                                    <div class="mt-box-icon" data-color="yellow">
-                                        <i class='bx bx-door-open'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="mt-font-montserrat mt-font-700">
-                                        Casos Abertos
-                                    </h5>
-                                    <h5 class="mb-0 mt-font-hind-madurai text-right" id="total_casos_abertos">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="mt-flex-between mt-font-montserrat mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-door-open'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Casos em aberto
+                                        Média de avaliações
                                     </h6>
                                 </div>
                             </div>
@@ -307,23 +167,23 @@
 
     function createDashboardChart($title, $description){
         ?>
-            <div class="mt-card mb-3">
+            <div class="hb-card mb-5">
                 <div class="card-body">
-                    <h5 class="mt-font-montserrat mt-font-700 mt-color-primary mt-title-with-icon">
+                    <h5 class="hb-w-700 hb-txt-white hb-title-with-icon">
                         <i class='bx bx-line-chart'></i>
                         <span class="ml-1">
                             <?php echo $title; ?>
                         </span>
                     </h5>
-                    <p class="mt-font-hind-madurai">
+                    <p class="hb-txt-white">
                         <?php echo $description; ?>
                     </p>
 
                     <hr>
 
                     <!-- Gráfico -->
-                    <div class="graph mt-4 mb-4">
-                        <canvas id="graph-qtd-total-entrantes"></canvas>
+                    <div class="graph hb-4 hb-4">
+                        <canvas id="graph-qtd-total-agendamentos"></canvas>
                     </div>
                 </div>
             </div>

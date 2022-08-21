@@ -393,7 +393,6 @@
 
                     $estabelecimentoModel = new EstabelecimentoModel();
                     $estabelecimentoDAO = new EstabelecimentoDAO();
-                    $UtilFunctions = new UtilFunctions();
         
                     $uploadedFiles = $request->getUploadedFiles();
                     $uploadedFile = $uploadedFiles['file'];
@@ -401,7 +400,7 @@
                     $directory = "../uploads/barbearia";
         
                     if($uploadedFile->getError() === UPLOAD_ERR_OK){
-                        $filename = $UtilFunctions->moveUploadedFile($directory, $uploadedFile);
+                        $filename = UtilFunctions::moveUploadedFile($directory, $uploadedFile);
 
                         $estabelecimentoModel->setFotoPerfil($filename);
                         $queryStatus = $estabelecimentoDAO->updateFotoPerfilEstabelecimento($estabelecimentoModel, $id);

@@ -24,11 +24,13 @@ const buildClienteArea = () =>{
                         horario_fechamento,
                         telefone,
                         cidade,
-                        status_funcionamento
+                        status_funcionamento,
+                        foto_perfil
                     } = establishment;
 
                     let horarioAberturaFormat = "";
                     let horarioFechamentoFormat = "";
+                    let fotoPerfil;
 
                     if(horario_abertura == "FECHADO"){
                         horarioAberturaFormat = "Fechado"
@@ -38,12 +40,19 @@ const buildClienteArea = () =>{
                         horarioFechamentoFormat = `${horario_fechamento}H`;
                     }
 
+                    if(foto_perfil == null || foto_perfil == ""){
+                        fotoPerfil = `assets/images/cliente-sem-ft.png`;
+                    }
+                    else{
+                        fotoPerfil = `uploads/barbearia/${foto_perfil}`;
+                    }
+
                     cardsBarbeariaWrapper.innerHTML += `
                         <div class='col-md-3 col-sm-12 mb-4'>
                             <div class='card area-cliente-card'>
                                 <img 
                                     class='card-img-top' 
-                                    src='assets/images/cliente-sem-ft.png' 
+                                    src='${fotoPerfil}' 
                                     alt='Imagem de capa do card'
                                 />
                                 <div class='status-${status_funcionamento == "ABERTO" ? "aberto" : "fechado"} hb-txt-black hb-w-700'>

@@ -17,6 +17,7 @@
                     estabelecimento.tipo,
                     estabelecimento.telefone,
                     estabelecimento.cnpj,
+                    estabelecimento.foto_perfil,
                     endereco.cep,
                     endereco.cidade,
                     endereco.bairro,

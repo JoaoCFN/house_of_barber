@@ -13,6 +13,7 @@ let numeroEnderecoBarbeariaInput = "";
 let bairroInput = "";
 let cidadeInput = "";
 let estadoInput = "";
+let uploadFile = document.querySelector("#upload_file");
 
 const loadUserInfos = () => {
     loading();
@@ -82,7 +83,7 @@ const loadUserInfos = () => {
                 fotoPerfil.src = `../assets/images/cliente-sem-ft.png`;
             }
             else{
-                fotoPerfil.src = foto_perfil;
+                fotoPerfil.src = `../uploads/barbearia/${foto_perfil}`;
             }
 
             closeLoading();
@@ -114,6 +115,8 @@ const editUserProfile = (e) => {
     bairroInput = document.forms.perfil_estabelecimento.bairro_input.value;
     cidadeInput = document.forms.perfil_estabelecimento.cidade_input.value;
     estadoInput = document.forms.perfil_estabelecimento.estado_input.value;
+
+    uploadFile.classList.remove("hb-d-none");
 
     const inputs = Array.from(document.forms.perfil_estabelecimento.elements);
 
@@ -152,6 +155,8 @@ const cancelEdition = (e) => {
     document.forms.perfil_estabelecimento.bairro_input.value = bairroInput;
     document.forms.perfil_estabelecimento.cidade_input.value = cidadeInput;
     document.forms.perfil_estabelecimento.estado_input.value = estadoInput;
+
+    uploadFile.classList.add("hb-d-none");
 
     const inputs = Array.from(document.forms.perfil_estabelecimento.elements);
 
@@ -219,7 +224,32 @@ const saveProfileChanges = (e) => {
     
                         request(`${apiPath}/endereco`, headers, 'PUT', body, (data) => {
                             if(data.error == "false"){
-                                msgWithRedirect("success", "Sucesso", message, "/house_of_barber/barbearia/perfil");
+                                const fileUploaded = document.getElementById('upload_file');
+
+                                if(fileUploaded.value != ""){
+                                    const formData = new FormData();
+                                    formData.append('file', fileUploaded.files[0]);
+
+                                    fetch(`${apiPath}/estabelecimento/foto_perfil`, {
+                                        headers: {
+                                            token: token
+                                        },
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if(data.error == "false"){
+                                            msgWithRedirect("success", "Sucesso", message, "/house_of_barber/barbearia/perfil");
+                                        }
+                                        else{
+                                            msgWithRedirect("error", "Erro!", data.message, "/house_of_barber/barbearia/perfil");
+                                        }
+                                    });
+                                }
+                                else{
+                                    msgWithRedirect("success", "Sucesso", message, "/house_of_barber/barbearia/perfil");
+                                }
                             }
                             else{
                                 msg("info", "Atenção", data.message);

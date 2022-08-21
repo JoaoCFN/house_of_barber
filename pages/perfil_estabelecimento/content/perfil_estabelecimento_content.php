@@ -9,7 +9,7 @@
                 >
                 <input 
                     type="file" 
-                    class="form-control-file hb-txt-white hb-bg-black"
+                    class="form-control-file hb-txt-white hb-bg-black hb-d-none"
                     id="upload_file"
                     name="upload_file" 
                     accept="image/png, image/gif, image/jpeg"

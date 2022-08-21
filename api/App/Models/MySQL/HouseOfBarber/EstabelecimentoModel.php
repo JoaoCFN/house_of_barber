@@ -13,6 +13,7 @@
         private $cnpj;
         private $dataCadastro;
         private $status;
+        private $fotoPerfil;
 
         /**
          * Get the value of nomeAdmin
@@ -208,6 +209,24 @@
         public function setStatus($status): self
         {
             $this->status = $status;
+
+            return $this;
+        }
+
+        /**
+         * Get the value of fotoPerfil
+         */
+        public function getFotoPerfil()
+        {
+            return $this->fotoPerfil;
+        }
+
+        /**
+         * Set the value of fotoPerfil
+         */
+        public function setFotoPerfil($fotoPerfil): self
+        {
+            $this->fotoPerfil = $fotoPerfil;
 
             return $this;
         }

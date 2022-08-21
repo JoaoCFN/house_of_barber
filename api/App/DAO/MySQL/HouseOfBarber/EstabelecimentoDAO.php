@@ -216,6 +216,22 @@
             return $result;
         }
 
+        public function updateFotoPerfilEstabelecimento(EstabelecimentoModel $estabelecimento, int $id): bool
+        {
+           $query = "UPDATE estabelecimento
+                SET
+                    foto_perfil = :foto_perfil
+            WHERE id = :id";
+
+            $statement = $this->pdo->prepare($query);
+            $result = $statement->execute([
+                "foto_perfil" => $estabelecimento->getFotoPerfil(),
+                "id" => $id
+            ]);
+
+            return $result;
+        }
+
         public function deleteEstabelecimento(int $id): bool
         {
             $query = "DELETE FROM estabelecimento

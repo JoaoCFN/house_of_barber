@@ -1,0 +1,43 @@
+.perfil-estabelecimento{
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* .perfil-estabelecimento img{
+    width: auto;
+    height: 100vh;
+} */
+
+.perfil-estabelecimento .card a:hover{
+    color: rgba(255, 193, 7, .8);
+}
+
+.perfil-estabelecimento .icone_dentro_input {
+    position: relative;
+}
+
+.perfil-estabelecimento .icone_dentro_input input{
+    padding-left: 40px;
+    height: 3rem;
+    color: var(--white);
+}
+
+.perfil-estabelecimento .icone_dentro_input i, 
+.perfil-estabelecimento .icone_dentro_input ion-icon{
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.95rem;
+    padding: 0px 10px;
+    color: var(--white);
+}
+
+.perfil-estabelecimento .card .area_alt, 
+.perfil-estabelecimento .card .area_alt i{
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .perfil-estabelecimento #foto-perfil{
+        margin-top: 5rem;
+    }
+}

@@ -9,6 +9,7 @@
     use App\Assets\BaseLib\App\Utilities;
     use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
     use App\Models\MySQL\HouseOfBarber\AutenticarModel;
+use App\Utilities\UtilFunctions;
 
     final class EstabelecimentoController{
         public function getEstabelecimentos(Request $request, Response $response, array $args): Response 
@@ -321,6 +322,77 @@
             else{
                 $response = $response->withJson([
                     "message" => "Informe o campos a serem atualizados",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function updateFotoPerfilEstabelecimento(Request $request, Response $response, array $args): Response
+        {
+            $headers = $request->getHeaders();
+
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
+
+                $autenticarModel->setToken($token);
+
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+                if($tokenData && count($tokenData) > 0){
+                    $id = $tokenData[0]["id_usuario"];
+
+                    $estabelecimentoModel = new EstabelecimentoModel();
+                    $estabelecimentoDAO = new EstabelecimentoDAO();
+                    $UtilFunctions = new UtilFunctions();
+        
+                    $uploadedFiles = $request->getUploadedFiles();
+                    $uploadedFile = $uploadedFiles['file'];
+        
+                    $directory = "../uploads/barbearia";
+        
+                    if($uploadedFile->getError() === UPLOAD_ERR_OK){
+                        $filename = $UtilFunctions->moveUploadedFile($directory, $uploadedFile);
+
+                        $estabelecimentoModel->setFotoPerfil($filename);
+                        $queryStatus = $estabelecimentoDAO->updateFotoPerfilEstabelecimento($estabelecimentoModel, $id);
+
+                        if($queryStatus){
+                            $response = $response->withJson([
+                                "message" => "Arquivo salvo com sucesso",
+                                "file_name" => $filename,
+                                "modificated_id" => $id,
+                                "error" => "false"
+                            ]);
+                        }
+                        else{
+                            $response = $response->withJson([
+                                "message" => "Erro ao processar a consulta",
+                                "error" => "true"
+                            ]);
+                        }
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Erro ao realizar o upload do arquivo",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Token inválido",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }

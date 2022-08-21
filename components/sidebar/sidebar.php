@@ -29,7 +29,7 @@
             createSidebarItem('Horários', 'Horários', "$pathRoutes/dias_funcionamento", 'bx bx-time-five', 'horarios');
             createSidebarItem('Serviços', 'Serviços', "$pathRoutes/servicos", 'bx bx-list-ul', 'servicos');
             // createSidebarItem('Avaliações', 'Avaliações', '#', 'bx bx-star', 'avaliacoes');
-            createSidebarItem('Estabelecimento', 'Estabelecimento', "#", 'bx bx-user', 'estabelecimento');
+            createSidebarItem('Estabelecimento', 'Estabelecimento', "$pathRoutes/perfil", 'bx bx-user', 'estabelecimento');
         ?>
 
         <div class="profile_content">

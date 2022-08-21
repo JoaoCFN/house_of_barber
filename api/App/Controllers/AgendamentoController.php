@@ -378,7 +378,7 @@
             }
 
             return $response;
-        }
+        }    
 
         public function updateStatusAgendamento(Request $request, Response $response, array $args): Response 
         {

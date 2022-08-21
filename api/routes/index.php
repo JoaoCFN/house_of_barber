@@ -28,6 +28,7 @@
         $app->get('/estabelecimento[/{id}]', EstabelecimentoController::class.':getEstabelecimento');
         $app->get('/estabelecimentos/token', EstabelecimentoController::class.':getEstabelecimentoWithToken');
         $app->put('/estabelecimento', EstabelecimentoController::class.':updateEstabelecimento');
+        $app->put('/estabelecimento/foto_perfil', EstabelecimentoController::class.':updateEstabelecimento');
         $app->delete('/estabelecimento', EstabelecimentoController::class.':deleteEstabelecimento');
 
         $app->get('/enderecos', EnderecoController::class.':getEnderecos');

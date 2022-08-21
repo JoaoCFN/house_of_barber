@@ -28,7 +28,7 @@
                             <div class="hb-flex-between">
                                 <div class="align-self-center">
                                     <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-message-check'></i>
+                                        <i class='bx bx-calendar'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
@@ -45,7 +45,7 @@
 
                             <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
-                                    <i class='bx bx-message-check'></i>
+                                    <i class='bx bx-calendar'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
@@ -63,7 +63,7 @@
                             <div class="hb-flex-between">
                                 <div class="align-self-center">
                                     <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-time'></i>
+                                        <i class='bx bx-message-rounded-error'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
@@ -80,7 +80,7 @@
 
                             <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
-                                    <i class='bx bx-time'></i>
+                                    <i class='bx bx-message-rounded-error'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">
@@ -98,7 +98,7 @@
                             <div class="hb-flex-between">
                                 <div class="align-self-center">
                                     <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-message-rounded-error'></i>
+                                        <i class='bx bx-message-check'></i>
                                     </div>
                                 </div>
                                 <div class="align-self-center">
@@ -115,7 +115,7 @@
 
                             <div class="hb-flex-between mb-0">
                                 <div class="legend-icon">
-                                    <i class='bx bx-message-rounded-error'></i>
+                                    <i class='bx bx-message-check'></i>
                                 </div>
                                 <div>
                                     <h6 class="box-legend-text mb-0">

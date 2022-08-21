@@ -61,7 +61,7 @@
                         Sobre
                     </h3>
                     <p class="hb-txt-white hb-w-500 text-justify">
-                        O House of Barber é um sistema online e 100% gratuito que possibilita aos donos de barbearia, o <span> gerenciamento e divulgação </span> de suas barbearias e oferta aos clientes, os serviços dos diversos estabelecimentos cadastrados na nossa plataforma. 
+                        O House of Barber é um sistema online e 100% gratuito que possibilita aos donos de barbearia o <span> gerenciamento e divulgação </span> de suas barbearias. Além disso, a plataforma oferta aos clientes os serviços dos diversos estabelecimentos cadastrados. 
                     </p>
                 </div>
                 <div class="col-sm-12 col-md-7 align-self-center">

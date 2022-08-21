@@ -37,9 +37,9 @@
                 "id" => $id
             ]);
 
-            $servico = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $agendamento = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $servico;
+            return $agendamento;
         }
 
         public function findByEstabelecimentoId(string $estabelecimentoId): array
@@ -81,6 +81,50 @@
             $statement = $this->pdo->prepare($query);
             $statement->execute([
                 "cliente_id" => $clienteId
+            ]);
+
+            $agendamento = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $agendamento;
+        }
+
+        public function findAgendamento(AgendamentoModel $agendamento): array
+        {
+            $query = "SELECT 
+                    * 
+                FROM agendamento
+                WHERE 
+                    estabelecimento_id = :estabelecimento_id
+                    AND data_agendamento = :data_agendamento
+                    AND horario_agendamento = :horario_agendamento
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "estabelecimento_id" => $agendamento->getEstabelecimentoId(),
+                "data_agendamento" => $agendamento->getDataAgendamento(),
+                "horario_agendamento" => $agendamento->getHorarioAgendamento()
+            ]);
+
+            $agendamento = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $agendamento;
+        }
+
+        public function findHorariosAgendamentosByData(AgendamentoModel $agendamento): array
+        {
+            $query = "SELECT 
+                    horario_agendamento
+                FROM agendamento
+                WHERE 
+                    estabelecimento_id = :estabelecimento_id
+                    AND data_agendamento = :data_agendamento
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "estabelecimento_id" => $agendamento->getEstabelecimentoId(),
+                "data_agendamento" => $agendamento->getDataAgendamento()
             ]);
 
             $agendamento = $statement->fetchAll(\PDO::FETCH_ASSOC);

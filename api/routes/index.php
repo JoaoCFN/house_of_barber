@@ -62,6 +62,7 @@
         $app->get('/agendamentos/dashboard/grafico', AgendamentoController::class.':getAgendamentoDataChart');
         $app->post('/agendamento', AgendamentoController::class.':insertAgendamento');
         $app->post('/agendamento/servico', AgendamentoController::class.':insertAgendamentoServico');
+        $app->post('/agendamentos/horarios', AgendamentoController::class.':getHorariosAgendamento');
         $app->put('/agendamento', AgendamentoController::class.':updateAgendamento');
         $app->put('/agendamento/status', AgendamentoController::class.':updateStatusAgendamento');
         $app->delete('/agendamento', AgendamentoController::class.':deleteAgendamento');

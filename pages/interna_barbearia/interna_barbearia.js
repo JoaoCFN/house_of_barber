@@ -102,15 +102,10 @@ const loadBarbeariaData = () => {
 
                                     dataAgendamentoFormat = `${dataAgendamento.getFullYear()}-${dataAgendamento.getUTCMonth() + 1}-${dataAgendamento.getUTCDate()}`;
                                     dataAgendamentoFormat = dataAgendamentoFormat.trim();
+
+                                    loadSchedulingTimes(dataAgendamentoFormat, horarioAbertura, horarioFechamento);
                                 }
                             });
-
-                            horarioAgendamentoInput = $('#horario-agendamento').pickatime({
-                                format: 'H:i',
-                                // Delimitador de horas
-                                min: [horarioAbertura.split(":")[0], horarioAbertura.split(":")[1]],
-                                max: [horarioFechamento.split(":")[0], horarioFechamento.split(":")[1]]
-                            })
                         }
 
                         closeLoading();
@@ -208,6 +203,50 @@ const handleCheck = (target) => {
         const InputChecked = Array.from(checkeds);
         InputChecked.length == 0 ? btn.setAttribute("disabled", "disabled"): ""
     }
+}
+
+const loadSchedulingTimes = (dataAgendamento, horarioAbertura, horarioFechamento) => {
+    loading();
+
+    const token = Cookies.get('user_token');
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'token': token
+    };
+
+    const body = {
+        id: establishmentId,
+        data_agendamento: dataAgendamento
+    };
+
+    let busySchedules = [];
+
+    request(`${apiPath}/agendamentos/horarios`, headers, 'POST', body, (data) => {
+        if(data.error == "true"){
+            msgWithRedirect("error", "Ooops!", data.message, "/house_of_barber/barbearias");
+        }
+        else{
+            if(data && data.length > 0){
+                data.forEach(({ horario_agendamento }) => {
+                    busySchedules.push([
+                        horario_agendamento.split(":")[0], 
+                        horario_agendamento.split(":")[1]
+                    ]);
+                });
+
+                $('#horario-agendamento').pickatime({
+                    format: 'H:i',
+                    // Delimitador de horas
+                    min: [horarioAbertura.split(":")[0], horarioAbertura.split(":")[1]],
+                    max: [horarioFechamento.split(":")[0], horarioFechamento.split(":")[1]],
+                    disable: busySchedules
+                });
+
+                closeLoading();
+            }
+        }
+    });
 }
 
 const confirmService = () => {

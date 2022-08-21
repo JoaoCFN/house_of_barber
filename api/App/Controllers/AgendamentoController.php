@@ -107,6 +107,39 @@
             return $response;
         }
 
+        public function getHorariosAgendamento(Request $request, Response $response, array $args): Response 
+        {
+            $data = $request->getParsedBody();
+
+            $fieldsNecessary = ['id', 'data_agendamento'];
+            $data = Utilities::treatRequestBody($data, 'PDO');
+    
+            $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+            if($correctFieldsInformed){
+                $estabelecimentoId = $data['id'];
+                $dataAgendamento = $data['data_agendamento'];
+
+                $agendamentoDAO = new AgendamentoDAO();
+                $agendamentoModel = new AgendamentoModel();
+
+                $agendamentoModel->setEstabelecimentoId($estabelecimentoId);
+                $agendamentoModel->setDataAgendamento($dataAgendamento);
+
+                $horarios = $agendamentoDAO->findHorariosAgendamentosByData($agendamentoModel);
+    
+                $response = $response->withJson($horarios);
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe todos os campos necessários",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
         public function getAgendamentoWithServicos(Request $request, Response $response, array $args): Response 
         {
             if(isset($args['id'])){
@@ -233,23 +266,33 @@
                         $agendamentoModel->setHorarioAgendamento($data['horario_agendamento']);
                         $agendamentoModel->setValor($data['valor']);
                         $agendamentoModel->setStatus($data['status']);
-            
-                        $queryData = $agendamentoDAO->insertAgendamento($agendamentoModel);
-                        $queryStatus = $queryData[0];
-                        $insertedId = $queryData[1];
-            
-                        if($queryStatus){
+
+                        $agendamentoData = $agendamentoDAO->findAgendamento($agendamentoModel);
+
+                        if($agendamentoData && count($agendamentoData) > 0){
                             $response = $response->withJson([
-                                "message" => "Agendamento inserido com sucesso",
-                                "scheduling_id" => $insertedId,
-                                "error" => "false"
+                                "message" => "Horário ocupado. Por favor, informe outro horário.",
+                                "error" => "true"
                             ]);
                         }
                         else{
-                            $response = $response->withJson([
-                                "message" => "Erro ao inserir o agendamento",
-                                "error" => "true"
-                            ]);
+                            $queryData = $agendamentoDAO->insertAgendamento($agendamentoModel);
+                            $queryStatus = $queryData[0];
+                            $insertedId = $queryData[1];
+                
+                            if($queryStatus){
+                                $response = $response->withJson([
+                                    "message" => "Agendamento inserido com sucesso",
+                                    "scheduling_id" => $insertedId,
+                                    "error" => "false"
+                                ]);
+                            }
+                            else{
+                                $response = $response->withJson([
+                                    "message" => "Erro ao inserir o agendamento",
+                                    "error" => "true"
+                                ]);
+                            }
                         }
                     }
                     else{

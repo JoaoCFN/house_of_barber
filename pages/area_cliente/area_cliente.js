@@ -1,3 +1,5 @@
+const apiPath = "/house_of_barber/api";
+
 const buildClienteArea = () =>{
     loading();
 

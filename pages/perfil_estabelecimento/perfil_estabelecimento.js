@@ -276,3 +276,12 @@ document.querySelector("#btn_editar").addEventListener("click", editUserProfile)
 document.querySelector("#btn_cancelar").addEventListener("click", cancelEdition);
 document.querySelector("#btn_salvar").addEventListener("click", saveProfileChanges);
 
+uploadFile.addEventListener("change", function(){
+    const imagePreview = document.querySelector("#img-foto-perfil");
+
+    if(imagePreview){
+        const imageSource = URL.createObjectURL(this.files[0]);
+        imagePreview.src = imageSource;
+    }
+})
+

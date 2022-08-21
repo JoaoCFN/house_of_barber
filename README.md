@@ -1,0 +1,12 @@
+# House of Barber
+O House of Barber é um sistema online e 100% gratuito que possibilita aos donos de barbearia o gerenciamento e divulgação de suas barbearias. 
+Além disso, a plataforma oferta aos clientes os serviços dos diversos estabelecimentos cadastrados.
+
+## Instalação e requisitos
+
+### Requisitos
+- XAMPP
+- Dump do banco de dados
+
+### Instalação
+Para rodar o projeto, você precisa ter o XAMPP e o dump do banco de dados devidamente configurados na sua máquina.

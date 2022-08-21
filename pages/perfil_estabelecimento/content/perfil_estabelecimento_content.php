@@ -3,8 +3,8 @@
         <div class="row p-3">
             <div class="col-lg-5 col-md-5 col-sm-12" id="foto-perfil">
                 <img 
-                    src="../assets/images/cliente-sem-ft.png" 
                     class="img-fluid"
+                    id="img-foto-perfil"
                     alt="foto-perfil"
                 >
                 <input 
@@ -21,7 +21,7 @@
                     MINHA BARBEARIA
                 </h4>
 
-                <form class="pt-3" id="registrar_barbearia" method="POST">
+                <form class="pt-3" id="perfil_estabelecimento" method="POST">
                     <h6 class="hb-txt-white hb-text-sm pb-2">
                         Pessoal
                     </h6>
@@ -35,6 +35,7 @@
                                 id="nome_admin" 
                                 placeholder="Nome completo"
                                 name="nome_admin_input"
+                                disabled="disabled"
                             >
                             <ion-icon name="person-outline" id="icone_nome">
                             </ion-icon>
@@ -51,6 +52,7 @@
                                     id="telefone_admin" 
                                     placeholder="Telefone"
                                     name="telefone_admin_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="call-outline" id="icone_telefone">
                                 </ion-icon>
@@ -65,6 +67,7 @@
                                     id="cpf_admin" 
                                     placeholder="CPF"
                                     name="cpf_admin_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="card-outline" id="icone_cpf">
                                 </ion-icon>
@@ -84,6 +87,7 @@
                                 id="email" 
                                 placeholder="E-mail"
                                 name="email_input"
+                                disabled="disabled"
                             >
                             <ion-icon name="mail-outline" id="icone_email">
                             </ion-icon>
@@ -103,6 +107,7 @@
                                     id="nome_barbearia" 
                                     placeholder="Nome da barbearia"
                                     name="nome_barbearia_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="home-outline" id="icone_nome_barbearia"></ion-icon>
                             </div>
@@ -116,6 +121,7 @@
                                     id="telefone_barbearia" 
                                     placeholder="Telefone"
                                     name="telefone_barbearia_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="call-outline" id="icone_telefone">
                                 </ion-icon>
@@ -134,11 +140,13 @@
                                         id="cep" 
                                         placeholder="CEP"
                                         name="cep_input"
+                                        disabled="disabled"
                                     >
                                     <ion-icon name="location-outline" id="icone_cep"></ion-icon>
                                 </div>
                                 <div>
                                     <button 
+                                        type="button"
                                         class="btn hb-btn-secondary"
                                         id="button_cep"
                                     >
@@ -155,6 +163,7 @@
                                     id="cnpj" 
                                     placeholder="CNPJ"
                                     name="cnpj_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="card-outline" id="icone_cnpj"></ion-icon>
                             </div>
@@ -171,6 +180,7 @@
                                     id="rua" 
                                     placeholder="Rua"
                                     name="rua_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="map-outline" id="icone_rua"></ion-icon>
                             </div>
@@ -183,6 +193,7 @@
                                     id="numero_endereco_barbearia" 
                                     placeholder="Nº"
                                     name="numero_endereco_barbearia_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="map-outline" id="icone_numero"></ion-icon>
                             </div>
@@ -196,6 +207,7 @@
                             id="bairro" 
                             placeholder="Bairro"
                             name="bairro_input"
+                            disabled="disabled"
                         >
                         <ion-icon name="map-outline" id="icone_bairro"></ion-icon>
                     </div>
@@ -210,6 +222,7 @@
                                     id="cidade" 
                                     placeholder="Cidade"
                                     name="cidade_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="map-outline" id="icone_cidade"></ion-icon>
                             </div>
@@ -222,6 +235,7 @@
                                     id="estado" 
                                     placeholder="UF"
                                     name="estado_input"
+                                    disabled="disabled"
                                 >
                                 <ion-icon name="map-outline" id="icone_estado"></ion-icon>
                             </div>

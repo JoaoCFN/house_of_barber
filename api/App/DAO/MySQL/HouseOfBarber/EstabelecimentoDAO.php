@@ -90,6 +90,42 @@
             return $estabelecimento;
         }
 
+        public function findPerfilEstabelecimento(string $id): array
+        {
+            $query = "SELECT 
+                    estabelecimento.id AS estabelecimento_id,
+                    estabelecimento.nome_admin,
+                    estabelecimento.telefone_admin,
+                    estabelecimento.cpf_admin,
+                    estabelecimento.email,
+                    estabelecimento.nome,
+                    estabelecimento.tipo,
+                    estabelecimento.telefone,
+                    estabelecimento.cnpj,
+                    estabelecimento.foto_perfil,
+                    endereco.cep,
+                    endereco.cidade,
+                    endereco.bairro,
+                    endereco.rua,
+                    endereco.numero,
+                    endereco.estado
+                FROM estabelecimento
+                LEFT JOIN endereco
+                ON estabelecimento.id = endereco.estabelecimento_id
+                WHERE 
+                    estabelecimento.id = :id
+            ";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                "id" => $id
+            ]);
+
+            $estabelecimento = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $estabelecimento;
+        }
+
         public function findUserByEmail(string $email): array
         {
             $query = "SELECT 
@@ -171,14 +207,9 @@
                     nome_admin = :nome_admin,
                     telefone_admin = :telefone_admin,
                     cpf_admin = :cpf_admin,
-                    email = :email,
-                    senha = :senha,
                     nome = :nome,
-                    tipo = :tipo,
                     telefone = :telefone,
-                    cnpj = :cnpj,
-                    data_cadastro = :data_cadastro,
-                    status = :status
+                    cnpj = :cnpj
             WHERE id = :id";
 
             $statement = $this->pdo->prepare($query);
@@ -186,14 +217,9 @@
                 "nome_admin" => $estabelecimento->getNomeAdmin(),
                 "telefone_admin" => $estabelecimento->getTelefoneAdmin(),
                 "cpf_admin" => $estabelecimento->getCpfAdmin(),
-                "email" => $estabelecimento->getEmail(),
-                "senha" => $estabelecimento->getSenha(),
                 "nome" => $estabelecimento->getNome(),
-                "tipo" => "BARBEARIA",
                 "telefone" => $estabelecimento->getTelefone(),
                 "cnpj" => $estabelecimento->getCnpj(),
-                "data_cadastro" => $estabelecimento->getDataCadastro(),
-                "status" => "ATIVO",
                 "id" => $id
             ]);
 

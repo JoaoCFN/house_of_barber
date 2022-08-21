@@ -62,7 +62,7 @@ const loadBarbeariaData = () => {
                     `;
                     horarioFuncionamentoBarbearia.innerHTML = `
                         ${horario_abertura != "FECHADO" ? `${horario_abertura}H - ` : "FECHADO"}
-                        ${horario_fechamento != "FECHADO" ? `${horario_abertura}H - ` : ""}
+                        ${horario_fechamento != "FECHADO" ? `${horario_fechamento}H` : ""}
                     `;
                 });
 

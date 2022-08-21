@@ -9,7 +9,7 @@
     use App\Assets\BaseLib\App\Utilities;
     use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
     use App\Models\MySQL\HouseOfBarber\AutenticarModel;
-use App\Utilities\UtilFunctions;
+    use App\Utilities\UtilFunctions;
 
     final class EstabelecimentoController{
         public function getEstabelecimentos(Request $request, Response $response, array $args): Response 
@@ -69,6 +69,55 @@ use App\Utilities\UtilFunctions;
 
                     $estabelecimentoDAO = new EstabelecimentoDAO();
                     $estabelecimento = $estabelecimentoDAO->findById($idUsuario);
+
+                    if($estabelecimento && count($estabelecimento) > 0){
+                        unset($estabelecimento[0]['senha']);
+
+                        $response = $response->withJson($estabelecimento);
+                    }
+                    else{
+                        $response = $response->withJson([
+                            "message" => "Usuário não encontrado",
+                            "error" => "true"
+                        ]);
+                    }
+                }
+                else{
+                    $response = $response->withJson([
+                        "message" => "Token inválido",
+                        "error" => "true"
+                    ]);
+                }
+            }
+            else{
+                $response = $response->withJson([
+                    "message" => "Informe o token do usuário logado",
+                    "error" => "true"
+                ]);
+            }
+
+            return $response;
+        }
+
+        public function getPerfilEstabalecimento(Request $request, Response $response, array $args): Response 
+        {   
+            $headers = $request->getHeaders();
+
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
+
+                $autenticarModel->setToken($token);
+
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
+
+                if($tokenData && count($tokenData) > 0){
+                    $idUsuario = $tokenData[0]["id_usuario"];
+
+                    $estabelecimentoDAO = new EstabelecimentoDAO();
+                    $estabelecimento = $estabelecimentoDAO->findPerfilEstabelecimento($idUsuario);
 
                     if($estabelecimento && count($estabelecimento) > 0){
                         unset($estabelecimento[0]['senha']);
@@ -187,83 +236,79 @@ use App\Utilities\UtilFunctions;
         
         public function updateEstabelecimento(Request $request, Response $response, array $args): Response 
         {
-            $data = $request->getParsedBody();
+            $headers = $request->getHeaders();
 
-            if($data && count($data) > 0){
-                $fieldsNecessary = ['nome_admin', 'telefone_admin', 'cpf_admin', 'email', 'senha', 'nome', 'telefone', 'cnpj'];
-                $data = Utilities::treatRequestBody($data, 'PDO');
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
 
-                $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+                $autenticarModel->setToken($token);
 
-                if($correctFieldsInformed){
-                    $id = $data['id'];
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
 
-                    if(is_numeric($id)){
-                        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                if($tokenData && count($tokenData) > 0){
+                    $data = $request->getParsedBody();
+
+                    if($data && count($data) > 0){
+                        $fieldsNecessary = ['nome_admin', 'telefone_admin', 'cpf_admin', 'nome', 'telefone', 'cnpj'];
+                        $data = Utilities::treatRequestBody($data, 'PDO');
+        
+                        $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+        
+                        if($correctFieldsInformed){
+                            $id = $tokenData[0]["id_usuario"];
+
                             $estabelecimentoModel = new EstabelecimentoModel();
                             $estabelecimentoDAO = new EstabelecimentoDAO();
 
-                            $userData = $estabelecimentoDAO->findUserByEmail($data['email']);
+                            $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
+                            $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
+                            $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
+                            $estabelecimentoModel->setNome($data['nome']);
+                            $estabelecimentoModel->setTelefone($data['telefone']);
+                            $estabelecimentoModel->setCnpj($data['cnpj']);
 
-                            if($userData && count($userData) > 0){
+                            $queryStatus = $estabelecimentoDAO->updateEstabelecimento($estabelecimentoModel, $id);
+
+                            if($queryStatus){
                                 $response = $response->withJson([
-                                    "message" => "O email já está em uso. Por favor, informe um e-mail diferente",
-                                    "error" => "true"
+                                    "message" => "Estabelecimento atualizado com sucesso",
+                                    "error" => "false"
                                 ]);
                             }
                             else{
-                                $hashSenha = password_hash($data['senha'], PASSWORD_DEFAULT);
-            
-                                $estabelecimentoModel->setNomeAdmin($data['nome_admin']);
-                                $estabelecimentoModel->setTelefoneAdmin($data['telefone_admin']);
-                                $estabelecimentoModel->setCpfAdmin($data['cpf_admin']);
-                                $estabelecimentoModel->setEmail($data['email']);
-                                $estabelecimentoModel->setSenha($hashSenha);
-                                $estabelecimentoModel->setNome($data['nome']);
-                                $estabelecimentoModel->setTelefone($data['telefone']);
-                                $estabelecimentoModel->setCnpj($data['cnpj']);
-            
-                                $queryStatus = $estabelecimentoDAO->updateEstabelecimento($estabelecimentoModel, $id);
-            
-                                if($queryStatus){
-                                    $response = $response->withJson([
-                                        "message" => "Estabelecimento atualizado com sucesso",
-                                        "error" => "false"
-                                    ]);
-                                }
-                                else{
-                                    $response = $response->withJson([
-                                        "message" => "Erro ao atualizar o estabelecimento",
-                                        "error" => "true"
-                                    ]);
-                                }
+                                $response = $response->withJson([
+                                    "message" => "Erro ao atualizar o estabelecimento",
+                                    "error" => "true"
+                                ]);
                             }
-    
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Informe um email em um formato válido",
+                                "message" => "Informe todos os campos necessários",
                                 "error" => "true"
                             ]);
                         }
                     }
                     else{
                         $response = $response->withJson([
-                            "message" => "Informe um id númerico",
+                            "message" => "Informe o campos a serem inseridos",
                             "error" => "true"
                         ]);
                     }
-                }
+                }  
                 else{
                     $response = $response->withJson([
-                        "message" => "Informe todos os campos necessários para a atualização",
+                        "message" => "Token inválido",
                         "error" => "true"
                     ]);
                 }
             }
             else{
                 $response = $response->withJson([
-                    "message" => "Informe o campos a serem atualizados",
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }

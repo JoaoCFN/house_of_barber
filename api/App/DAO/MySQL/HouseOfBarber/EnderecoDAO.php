@@ -78,25 +78,23 @@
         {
            $query = "UPDATE endereco
                 SET
-                    estabelecimento_id = :estabelecimento_id,
                     cep = :cep,
                     estado = :estado,
                     cidade = :cidade,
                     bairro = :bairro,
                     rua = :rua,
                     numero = :numero
-            WHERE id = :id";
+            WHERE estabelecimento_id = :estabelecimento_id";
 
             $statement = $this->pdo->prepare($query);
             $result = $statement->execute([
-                "estabelecimento_id" => $endereco->getEstabelecimentoId(),
                 "cep" => $endereco->getCep(),
                 "estado" => $endereco->getEstado(),
                 "cidade" => $endereco->getCidade(),
                 "bairro" => $endereco->getBairro(),
                 "rua" => $endereco->getRua(),
                 "numero" => $endereco->getNumero(),
-                "id" => $id
+                "estabelecimento_id" => $id
             ]);
 
             return $result;

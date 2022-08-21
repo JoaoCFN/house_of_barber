@@ -7,6 +7,8 @@
     use App\DAO\MySQL\HouseOfBarber\EnderecoDAO;
     use App\Models\MySQL\HouseOfBarber\EnderecoModel;
     use App\Assets\BaseLib\App\Utilities;
+use App\DAO\MySQL\HouseOfBarber\AutenticarDAO;
+use App\Models\MySQL\HouseOfBarber\AutenticarModel;
 
     final class EnderecoController{
         public function getEnderecos(Request $request, Response $response, array $args): Response 
@@ -103,61 +105,79 @@
         
         public function updateEndereco(Request $request, Response $response, array $args): Response 
         {
-            $data = $request->getParsedBody();
+            $headers = $request->getHeaders();
 
-            if($data && count($data) > 0){
-                $fieldsNecessary = ['estabelecimento_id', 'cep', 'estado', 'cidade', 'bairro', 'rua', 'numero'];
-                $data = Utilities::treatRequestBody($data, 'PDO');
+            if(isset($headers['HTTP_TOKEN'])){
+                $token = $headers['HTTP_TOKEN'][0];
+                
+                $autenticarDAO = new AutenticarDAO();
+                $autenticarModel = new AutenticarModel();
 
-                $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+                $autenticarModel->setToken($token);
 
-                if($correctFieldsInformed){
-                    $id = $data['id'];
+                $tokenData = $autenticarDAO->findUserByToken($autenticarModel);
 
-                    if(is_numeric($id)){
-                        $enderecoDAO = new EnderecoDAO();
-                        $enderecoModel = new EnderecoModel();
-                    
-                        $enderecoModel->setEstabelecimentoId($data['estabelecimento_id']);
-                        $enderecoModel->setCep($data['cep']);
-                        $enderecoModel->setEstado($data['estado']);
-                        $enderecoModel->setCidade($data['cidade']);
-                        $enderecoModel->setBairro($data['bairro']);
-                        $enderecoModel->setRua($data['rua']);
-                        $enderecoModel->setNumero($data['numero']);
-                    
-                        $queryStatus = $enderecoDAO->updateEndereco($enderecoModel, $id);
-            
-                        if($queryStatus){
-                            $response = $response->withJson([
-                                "message" => "Endereço inserido com sucesso",
-                                "error" => "false"
-                            ]);
+                if($tokenData && count($tokenData) > 0){
+                    $data = $request->getParsedBody();
+
+                    if($data && count($data) > 0){
+                        $fieldsNecessary = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numero'];
+                        $data = Utilities::treatRequestBody($data, 'PDO');
+
+                        $correctFieldsInformed = Utilities::verifyAmountFields($fieldsNecessary, $data);
+
+                        if($correctFieldsInformed){
+                            $id = $tokenData[0]["id_usuario"];
+
+                            $enderecoDAO = new EnderecoDAO();
+                            $enderecoModel = new EnderecoModel();
+                        
+                            $enderecoModel->setCep($data['cep']);
+                            $enderecoModel->setEstado($data['estado']);
+                            $enderecoModel->setCidade($data['cidade']);
+                            $enderecoModel->setBairro($data['bairro']);
+                            $enderecoModel->setRua($data['rua']);
+                            $enderecoModel->setNumero($data['numero']);
+                        
+                            $queryStatus = $enderecoDAO->updateEndereco($enderecoModel, $id);
+
+                            if($queryStatus){
+                                $response = $response->withJson([
+                                    "message" => "Endereço atualizado com sucesso",
+                                    "error" => "false"
+                                ]);
+                            }
+                            else{
+                                $response = $response->withJson([
+                                    "message" => "Erro ao atualizar o endereço",
+                                    "error" => "true"
+                                ]);
+                            }
                         }
                         else{
                             $response = $response->withJson([
-                                "message" => "Erro ao inserir o endereço",
+                                "message" => "Informe todos os campos necessários para a atualização",
                                 "error" => "true"
                             ]);
                         }
                     }
                     else{
                         $response = $response->withJson([
-                            "message" => "Informe um id númerico",
+                            "message" => "Informe o campos a serem atualizados",
                             "error" => "true"
                         ]);
                     }
                 }
                 else{
                     $response = $response->withJson([
-                        "message" => "Informe todos os campos necessários para a atualização",
+                        "message" => "Token inválido",
                         "error" => "true"
                     ]);
                 }
             }
             else{
                 $response = $response->withJson([
-                    "message" => "Informe o campos a serem atualizados",
+                    "message" => "Informe o token do usuário logado",
                     "error" => "true"
                 ]);
             }

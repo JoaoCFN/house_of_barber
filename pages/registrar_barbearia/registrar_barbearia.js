@@ -26,7 +26,6 @@
                 bairro_input,
                 cidade_input,
                 estado_input
-             
             } = document.forms.registrar_barbearia;
 
             if(!validateEmail(email_input.value)){

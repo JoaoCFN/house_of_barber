@@ -10,3 +10,6 @@ Além disso, a plataforma oferta aos clientes os serviços dos diversos estabele
 
 ### Instalação
 Para rodar o projeto, você precisa ter o XAMPP e o dump do banco de dados devidamente configurados na sua máquina.
+
+Após se certificar que este primeiro passo está correto, você deve entrar na pasta da API e instalar as dependências do projeto via composer.
+`composer install`

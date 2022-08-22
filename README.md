@@ -6,7 +6,7 @@ Além disso, a plataforma oferta aos clientes os serviços dos diversos estabele
 
 ### Requisitos
 - XAMPP
-- Dump do banco de dados
+- [Dump do banco de dados](https://drive.google.com/file/d/1Q4nngU731FxutDXAP5RqETpHSFDtSo2T/view?usp=sharing)
 
 ### Instalação
 Para rodar o projeto, você precisa ter o XAMPP e o dump do banco de dados devidamente configurados na sua máquina.

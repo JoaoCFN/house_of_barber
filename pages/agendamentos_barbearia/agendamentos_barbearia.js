@@ -162,7 +162,7 @@ const loadAgendamentos = () => {
 const updateAgendamento = (status, id) => {
     const action = status == "FINALIZADO" ? "finalizar" : "cancelar";
 
-    msgWithConfirm('info', 'Atenção', `Deseja ${action} esse agendamento?`, 'Deletar', (event) => {
+    msgWithConfirm('info', 'Atenção', `Deseja ${action} esse agendamento?`, 'Sim', (event) => {
         if(event.isConfirmed){
             loading();
 

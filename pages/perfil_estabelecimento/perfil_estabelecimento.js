@@ -170,7 +170,7 @@ const cancelEdition = (e) => {
 };
 
 const saveProfileChanges = (e) => {
-    msgWithConfirm('info', 'Atenção', 'Deseja editar seus dados?', 'Deletar', (event) => {
+    msgWithConfirm('info', 'Atenção', 'Deseja editar os dados da sua barbearia?', 'Sim', (event) => {
         if(event.isConfirmed){
             let dataIsValid = validateData();
 

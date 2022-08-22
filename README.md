@@ -6,6 +6,7 @@ Além disso, a plataforma oferta aos clientes os serviços dos diversos estabele
 
 ### Requisitos
 - [XAMPP](https://www.apachefriends.org/pt_br/index.html)
+- [Composer](https://getcomposer.org)
 - [Dump do banco de dados](https://drive.google.com/file/d/1Q4nngU731FxutDXAP5RqETpHSFDtSo2T/view?usp=sharing)
 
 ### Instalação

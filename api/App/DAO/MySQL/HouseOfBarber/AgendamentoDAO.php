@@ -64,7 +64,10 @@
         public function findByClienteId(string $clienteId): array
         {
             $query = "SELECT 
-                    *,
+                    agendamento.*,
+                    estabelecimento.*,
+                    endereco.*,
+                    cliente.nome AS nome_cliente,
                     DATE_FORMAT(agendamento.data_agendamento, '%d/%m/%Y') AS data_agendamento_format,
                     TIME_FORMAT(agendamento.horario_agendamento, '%H:%i') AS horario_agendamento_format,
                     agendamento.id AS agendamento_id,
@@ -72,6 +75,8 @@
                 FROM agendamento
                 INNER JOIN estabelecimento
                 ON agendamento.estabelecimento_id = estabelecimento.id
+                INNER JOIN cliente
+                ON agendamento.cliente_id = cliente.id
                 INNER JOIN endereco
                 ON estabelecimento.id = endereco.estabelecimento_id
                 WHERE 

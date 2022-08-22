@@ -61,7 +61,7 @@ const loadAgendamentos = () => {
                             schedulingData.forEach(scheduling => {
                                 const {
                                     agendamento_id,
-                                    nome,
+                                    nome_cliente,
                                     data_agendamento_format,
                                     horario_agendamento_format,
                                     valor,
@@ -106,7 +106,7 @@ const loadAgendamentos = () => {
                                             `;
 
                                             dataTableData.push([
-                                                nome,
+                                                nome_cliente,
                                                 data_agendamento_format,
                                                 horario_agendamento_format,
                                                 valor,

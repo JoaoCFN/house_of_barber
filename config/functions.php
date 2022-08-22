@@ -21,147 +21,157 @@
 
     function createCardDeck(){
         ?>
-            <div class="row hb-4 mb-4">
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="hb-card">
-                        <div class="card-body hb-txt-white">
-                            <div class="hb-flex-between">
-                                <div class="align-self-center">
-                                    <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-calendar'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="hb-w-700 hb-card-title">
-                                        Total agendamentos
-                                    </h5>
-                                    <h5 class="mb-0 text-right" id="total_agendamentos">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="hb-flex-between mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-calendar'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Total agendamentos
-                                    </h6>
-                                </div>
+        <div class="card-deck mt-3 mb-4">
+            <div class="card hb-card">
+                <div class="card-body hb-txt-white">
+                    <div class="hb-flex-between">
+                        <div class="align-self-center">
+                            <div class="hb-box-icon" data-color="yellow">
+                                <i class='bx bx-calendar'></i>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="hb-card">
-                        <div class="card-body hb-txt-white">
-                            <div class="hb-flex-between">
-                                <div class="align-self-center">
-                                    <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-message-rounded-error'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="hb-w-700 hb-card-title">
-                                        Agendamentos em aberto
-                                    </h5>
-                                    <h5 class="mb-0 text-right" id="agendamentos_pendentes">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="hb-flex-between mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-message-rounded-error'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Agendamentos em aberto
-                                    </h6>
-                                </div>
-                            </div>
+                        <div class="align-self-center">
+                            <h5 class="hb-w-700 hb-card-title">
+                                Total agendamentos
+                            </h5>
+                            <h5 class="mb-0 text-right" id="total_agendamentos">
+                                0
+                            </h5>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="hb-card">
-                        <div class="card-body hb-txt-white">
-                            <div class="hb-flex-between">
-                                <div class="align-self-center">
-                                    <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-message-check'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="hb-w-700 hb-card-title">
-                                        Agendamentos finalizados
-                                    </h5>
-                                    <h5 class="mb-0 text-right" id="agendamentos_finalizados">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="hb-flex-between mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-message-check'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Agendamentos finalizados
-                                    </h6>
-                                </div>
-                            </div>
+    
+                    <hr>
+    
+                    <div class="hb-flex-between mb-0">
+                        <div class="legend-icon">
+                            <i class='bx bx-calendar'></i>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mt-3 mb-2">
-                    <div class="hb-card">
-                        <div class="card-body hb-txt-white">
-                            <div class="hb-flex-between">
-                                <div class="align-self-center">
-                                    <div class="hb-box-icon" data-color="yellow">
-                                        <i class='bx bx-clipboard'></i>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h5 class="hb-w-700 hb-card-title">
-                                        Média das avaliações
-                                    </h5>
-                                    <h5 class="mb-0 text-right" id="media_avaliacoes">
-                                        0
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="hb-flex-between mb-0">
-                                <div class="legend-icon">
-                                    <i class='bx bx-clipboard'></i>
-                                </div>
-                                <div>
-                                    <h6 class="box-legend-text mb-0">
-                                        Média de avaliações
-                                    </h6>
-                                </div>
-                            </div>
+                        <div>
+                            <h6 class="box-legend-text mb-0">
+                                Total agendamentos
+                            </h6>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="card hb-card">
+                <div class="card-body hb-txt-white">
+                    <div class="hb-flex-between">
+                        <div class="align-self-center">
+                            <div class="hb-box-icon" data-color="yellow">
+                                <i class='bx bx-message-rounded-error'></i>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h5 class="hb-w-700 hb-card-title">
+                                Agendamentos em aberto
+                            </h5>
+                            <h5 class="mb-0 text-right" id="agendamentos_pendentes">
+                                0
+                            </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="hb-flex-between mb-0">
+                        <div class="legend-icon">
+                            <i class='bx bx-message-rounded-error'></i>
+                        </div>
+                        <div>
+                            <h6 class="box-legend-text mb-0">
+                                Agendamentos em aberto
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hb-card">
+                <div class="card-body hb-txt-white">
+                    <div class="hb-flex-between">
+                        <div class="align-self-center">
+                            <div class="hb-box-icon" data-color="yellow">
+                                <i class='bx bx-message-check'></i>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h5 class="hb-w-700 hb-card-title">
+                                Agendamentos finalizados
+                            </h5>
+                            <h5 class="mb-0 text-right" id="agendamentos_finalizados">
+                                0
+                            </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="hb-flex-between mb-0">
+                        <div class="legend-icon">
+                            <i class='bx bx-message-check'></i>
+                        </div>
+                        <div>
+                            <h6 class="box-legend-text mb-0">
+                                Agendamentos finalizados
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hb-card">
+                <div class="card-body hb-txt-white">
+                    <div class="hb-flex-between">
+                        <div class="align-self-center">
+                            <div class="hb-box-icon" data-color="yellow">
+                                <i class='bx bx-clipboard'></i>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h5 class="hb-w-700 hb-card-title">
+                                Média das avaliações
+                            </h5>
+                            <h5 class="mb-0 text-right" id="media_avaliacoes">
+                                0
+                            </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="hb-flex-between mb-0">
+                        <div class="legend-icon">
+                            <i class='bx bx-clipboard'></i>
+                        </div>
+                        <div>
+                            <h6 class="box-legend-text mb-0">
+                                Média de avaliações
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- <div class="row hb-4 mb-4">
+                <div class="col-sm-12 col-md-3 mt-3 mb-2">
+                    
+                </div>
+                
+                <div class="col-sm-12 col-md-3 mt-3 mb-2">
+                    
+                </div>
+
+                <div class="col-sm-12 col-md-3 mt-3 mb-2">
+                    
+                </div>
+
+                <div class="col-sm-12 col-md-3 mt-3 mb-2">
+                    
+                </div>
+            </div> -->
         <?php
     }
 

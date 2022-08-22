@@ -11,7 +11,7 @@
     height: auto;
 }
 
-@media (min-width: 576px) and (max-width: 1368px){
+@media (min-width: 576px) and (max-width: 1920px){
     .hb-card-title{
         text-align: right;
     }  

@@ -16,4 +16,8 @@ Use o seguinte comando:
 `composer install`
 
 Após isso, o projeto estará disponível para ser acessado em ambiente local.
-OBS: O projeto deve ser clonado na pasta htdocs do XAMPP.
+
+### Observações
+- O projeto deve ser clonado na pasta htdocs do XAMPP.
+- No momento, a configuração de conexão ao banco de dados está no arquivo Conexao.php. O caminho para o arquivo é `api/App/DAO/MYSQL/HouseOfBarber`.
+Caso a sua conexão padrão com o seu BD seja diferente do que está no arquivo, informe as credenciais do seu servidor MySQL.

@@ -5,7 +5,7 @@ Além disso, a plataforma oferta aos clientes os serviços dos diversos estabele
 ## Instalação e requisitos
 
 ### Requisitos
-- XAMPP
+- [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 - [Dump do banco de dados](https://drive.google.com/file/d/1Q4nngU731FxutDXAP5RqETpHSFDtSo2T/view?usp=sharing)
 
 ### Instalação

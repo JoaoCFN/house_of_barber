@@ -4,7 +4,7 @@
     function slimConfiguration(): \Slim\Container{
         $configuration = [
             'settings' => [
-                'displayErrorDetails' => getenv('DISPLAY_ERRORS_DETAILS'),
+                'displayErrorDetails' => true
             ],
         ];
     
